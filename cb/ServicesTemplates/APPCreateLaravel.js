@@ -14,7 +14,7 @@ const zzz = [
         //FakerFactorySample
         location:"database/factories/",
         filename:"~cd-service-name~Factory.php",
-        templateLocalFile:"./cb/templates/Factory.template.js",
+        templateLocalFile:"./cb/ServicesTemplates/Factory.template.js",
         changes:[
             {
                 typeOfChange:"~cd-service-name~", //string-replace
@@ -27,7 +27,7 @@ const zzz = [
         //SeederModify
         location:"database/seeders/",
         filename:"~cd-service-name~Seeder.php",
-        templateLocalFile:"./cb/templates/Seeder.template.js", //string-replace
+        templateLocalFile:"./cb/ServicesTemplates/Seeder.template.js", //string-replace
         changes:[
             {
                 typeOfChange:"~cd-service-name~",
@@ -40,7 +40,7 @@ const zzz = [
     {
         location: "App/Repository/",
         filename: "~cb~service~name~Repository.php",
-        templateLocalFile: "./cb/templates/Repository.template.js", //string-replace
+        templateLocalFile: "./cb/ServicesTemplates/Repository.template.js", //string-replace
         changes: [
             {
                 typeOfChange: "~cb-service-name~",
@@ -53,7 +53,7 @@ const zzz = [
     {
         location: "App/Interfaces/",
         filename: "~cb~service~name~Interface.php",
-        templateLocalFile: "./cb/templates/Interface.template.js", //string-replace
+        templateLocalFile: "./cb/ServicesTemplates/Interface.template.js", //string-replace
         changes: [
             {
                 typeOfChange: "~cb-service-name~",
@@ -66,7 +66,7 @@ const zzz = [
         //Controller
         location:"app/Http/Controllers/",
         filename:"~cd-service-name~Controller.php",
-        templateLocalFile:"./cb/templates/Controller.template.js",
+        templateLocalFile:"./cb/ServicesTemplates/Controller.template.js",
         changes:[
             {
                 typeOfChange:"~cd-service-name~", //string-replace
@@ -79,7 +79,7 @@ const zzz = [
         //RouteApi
         location:"routes/",
         filename:"api.php",
-        templateLocalFile:"./cb/templates/Route_API.template.js",
+        templateLocalFile:"./cb/ServicesTemplates/Route_API.template.js",
         changes:[
             {
                 typeOfChange:"~cd-service-name~", //string-insert
@@ -92,7 +92,7 @@ const zzz = [
         //Provider
         location:"app/Providers/",
         filename:"RepositoryServiceProvider.php",
-        templateLocalFile:"./cb/templates/Provider.template.js",
+        templateLocalFile:"./cb/ServicesTemplates/Provider.template.js",
         changes:[
             {
                 typeOfChange:"~cd-service-name~", //string-replace
@@ -105,7 +105,7 @@ const zzz = [
         //provider Service
         location:"config/",
         filename:"app.php",
-        templateLocalFile:"./cb/templates/Service.template.js",
+        templateLocalFile:"./cb/ServicesTemplates/Service.template.js",
         changes:[
             {
                 typeOfChange:"string-replace",
