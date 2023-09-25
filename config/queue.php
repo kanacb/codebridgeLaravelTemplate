@@ -1,5 +1,13 @@
 <?php
 
+// use App\Jobs\ProcessPodcast;
+
+// // This job is sent to the default connection's default queue...
+// ProcessPodcast::dispatch();
+
+// // This job is sent to the default connection's "emails" queue...
+// ProcessPodcast::dispatch()->onQueue('emails');
+
 return [
 
     /*
@@ -13,7 +21,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'database'),
 
     /*
     |--------------------------------------------------------------------------
