@@ -71,9 +71,9 @@ const zzz = [
         templateLocalFile:"./cb/ServicesTemplates/Seeder.template.js", //string-replace
         changes:[
             {
-                typeOfChange:"~cd-service-name~",
-                from:"cb-service-name",
-                to:"stack.serviceName",
+                typeOfChange:"~cd-fakerName~",
+                from:"cb-fakerName",
+                to:"stack.fakerName",
             },
         ],
     },
