@@ -42,9 +42,9 @@ const zzz = [
         templateLocalFile:"./cb/ServicesTemplates/Factory.template.js",
         changes:[
             {
-                typeOfChange:"~cd-service-name~", //string-replace
-                from:"cb-service-name",
-                to:"stack.serviceName",
+                typeOfChange:"~cd-fakername~", //string-replace
+                from:"cb-fakername",
+                to:"stack.fakerName",
             },
             {
                 typeOfChange:"~cd-fakerType~", //string-replace
