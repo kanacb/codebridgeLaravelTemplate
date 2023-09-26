@@ -46,6 +46,22 @@ const zzz = [
                 from:"cb-service-name",
                 to:"stack.serviceName",
             },
+            {
+                typeOfChange:"~cd-fakerType~", //string-replace
+                from:"cb-fakerType",
+                to:"stack.fakerType",
+            },
+            {
+                typeOfChange:"~cd-fakerCondition1~", //string-replace
+                from:"cb-fakerCondition1",
+                to:"stack.fakerCondition1",
+            },
+            {
+                typeOfChange:"~cd-fakerCondition2~", //string-replace
+                from:"cb-fakerCondition2",
+                to:"stack.fakerCondition2",
+            },
+        
         ],
     },
     {
