@@ -75,6 +75,11 @@ const zzz = [
                 from:"cb-fakerName",
                 to:"stack.fakerName",
             },
+            {
+                typeOfChange:"~cd-seedTimes~",
+                from:"cb-seedTimes",
+                to:"stack.seedTimes",
+            },
         ],
     },
     //CreateRepository
