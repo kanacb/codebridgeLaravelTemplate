@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\auth\authController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,21 +15,52 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('auth')->group(function () {
+    Route::post('login' , [AuthController::class,'login'])->name('login');
+    Route::post('auth', [AuthController::class,'authenticate'])->name('auth');
+    Route::post('reauth', [AuthController::class,'reauth'])->name('reauth');
+    Route::post('login' , [AuthController::class,'login'])->name('login');
+    Route::post('login' , [AuthController::class,'login'])->name('login');
+    Route::post('login' , [AuthController::class,'login'])->name('login');
+    Route::post('login' , [AuthController::class,'login'])->name('login');
+});
+
+Route::middleware('auth:sanctum','active_user')->group(function (){
+    Route::prefix('~cb-service-name')->group(function () {
+        Route::post('/submitQr', [QrController::class,'submitQr'])->name('submitQr');
+    });
 });
 
 
-Route::get('/profile', function () {
-    // Only verified users may access this route...
-})->middleware(['auth', 'verified']);
+
+// exceptions
+Route::post('/exceptions', function (Request $request) {
+    Exceptions::create([
+        'device_id' => $request->device_id,
+        'error_type' => $request->error_type,
+        'function_name' => $request->function_name,
+        'request_uri' => $request->request_uri,
+        'request_headers' => $request->request_headers,
+        'request_body' => $request->request_body,
+        'error_body' => $request->error_body,
+    ]);
+    return response()-json(['received' => 'ok', 'statusCode' => '200']);
+})->name('exceptions');
 
 
-Route::get ('login' , [authController::class,'login'])->name('login');
-
-//route for orders
-Route::get('orders', [OrderController::class, 'index']);
-Route::get('orders/{id}', [OrderController::class, 'show']);
-Route::post('orders', [OrderController::class, 'store']);
-Route::put('orders/{id}', [OrderController::class, 'update']);
-Route::delete('orders/{id}', [OrderController::class, 'delete']);
+// bad routes
+Route::any('{url?}/{sub_url?}', function(Request $request, $url, $sub_url){
+    return response()->json([
+        'statusCode' => 404,
+        'status' => false,
+        'message' => "Route not found",
+        'data' => [
+            [
+                'path' => $request->path(),
+                'method' => $request->method(),
+                'no_such_url' => $url .'/'.$sub_url,
+                'message'   => 'API Not Found.'
+            ]
+        ],
+    ], 404);
+});

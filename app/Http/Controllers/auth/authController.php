@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
-class authController extends Controller
+class AuthController extends Controller
 {
     public function __construct()
     {
@@ -20,15 +20,6 @@ class authController extends Controller
         ]);
     }
 
-    public function login()
-    {
-        return view('user.login');
-    }
-
-    public function signUp()
-    {
-        return view('user.signUp');
-    }
 
     public function store(Request $request)
     {
