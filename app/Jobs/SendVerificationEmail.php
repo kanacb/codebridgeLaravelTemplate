@@ -28,7 +28,6 @@ class SendVerificationEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        sleep(5);
         logger('email sent!');
     }
 }
