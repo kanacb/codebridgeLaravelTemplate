@@ -17,5 +17,5 @@ use App\Http\Controllers\auth\authController;
 */
 
 Route::any('{any}', function () {
-    return redirect(env('APP_URL',"http://localhost:3000"));
+    return redirect(env('FRONTEND_URL',"http://localhost:3000"));
 })->where('any', '.*');
