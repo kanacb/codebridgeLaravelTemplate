@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,41 +16,42 @@ use App\Http\Controllers\auth\AuthController;
 |
 */
 
-Route::prefix('auth')->group(function () {
-    Route::post('login' , [AuthController::class,'login'])->name('login');
-    Route::post('auth', [AuthController::class,'authenticate'])->name('auth');
-    Route::post('reauth', [AuthController::class,'reauth'])->name('reauth');
-    Route::post('login' , [AuthController::class,'login'])->name('login');
-    Route::post('login' , [AuthController::class,'login'])->name('login');
-    Route::post('login' , [AuthController::class,'login'])->name('login');
-    Route::post('login' , [AuthController::class,'login'])->name('login');
-});
+
+Route::post('authentication' , [AuthController::class,'login'])->name('login');
+//     Route::post('auth', [AuthController::class,'authenticate'])->name('auth');
+Route::post('users', [UserController::class, 'store']);
+//     Route::post('reauth', [AuthController::class,'reauth'])->name('reauth');
+//     Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
+//     Route::post('login' , [AuthController::class,'login'])->name('login');
+
+
 
 Route::middleware('auth:sanctum','active_user')->group(function (){
-    Route::prefix('~cb-service-name')->group(function () {
-        Route::post('/submitQr', [QrController::class,'submitQr'])->name('submitQr');
+    Route::prefix("users")->group(function () {
+        Route::resource('users', UserController::class);
+        Route::get('usersfullfilled', [UserController::class, 'index']);
     });
 });
 
 
 
 // exceptions
-Route::post('/exceptions', function (Request $request) {
-    Exceptions::create([
-        'device_id' => $request->device_id,
-        'error_type' => $request->error_type,
-        'function_name' => $request->function_name,
-        'request_uri' => $request->request_uri,
-        'request_headers' => $request->request_headers,
-        'request_body' => $request->request_body,
-        'error_body' => $request->error_body,
-    ]);
-    return response()-json(['received' => 'ok', 'statusCode' => '200']);
-})->name('exceptions');
+// Route::post('/exceptions', function (Request $request) {
+//     Exceptions::create([
+//         'device_id' => $request->device_id,
+//         'error_type' => $request->error_type,
+//         'function_name' => $request->function_name,
+//         'request_uri' => $request->request_uri,
+//         'request_headers' => $request->request_headers,
+//         'request_body' => $request->request_body,
+//         'error_body' => $request->error_body,
+//     ]);
+//     return response()-json(['received' => 'ok', 'statusCode' => '200']);
+// })->name('exceptions');
 
 
 // bad routes
-Route::any('{url?}/{sub_url?}', function(Request $request, $url, $sub_url){
+Route::any('{url?}/{sub_url?}/{params?}', function(Request $request, $url = null, $sub_url = null, $params = null){
     return response()->json([
         'statusCode' => 404,
         'status' => false,
@@ -59,6 +61,7 @@ Route::any('{url?}/{sub_url?}', function(Request $request, $url, $sub_url){
                 'path' => $request->path(),
                 'method' => $request->method(),
                 'no_such_url' => $url .'/'.$sub_url,
+                'params' => $params,
                 'message'   => 'API Not Found.'
             ]
         ],

@@ -23,11 +23,7 @@ class AuthController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:250',
-            'email' => 'required|email|max:250|unique:users',
-            'password' => 'required|min:3|confirmed'
-        ]);
+
 
         $results = User::create([
             'name' => $request->name,
