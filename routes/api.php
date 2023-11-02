@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+~cb-class-paths~
 
 /*
 |--------------------------------------------------------------------------
@@ -16,38 +17,36 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
 Route::post('authentication' , [AuthController::class,'login'])->name('login');
-//     Route::post('auth', [AuthController::class,'authenticate'])->name('auth');
 Route::post('users', [UserController::class, 'store']);
-//     Route::post('reauth', [AuthController::class,'reauth'])->name('reauth');
-//     Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
-//     Route::post('login' , [AuthController::class,'login'])->name('login');
-
+Route::post('reauthentication', [AuthController::class,'reauth'])->name('reauth');
+Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
 
 
 Route::middleware('auth:sanctum','active_user')->group(function (){
     Route::prefix("users")->group(function () {
         Route::resource('users', UserController::class);
         Route::get('usersfullfilled', [UserController::class, 'index']);
+        Route::post('change_password' , [AuthController::class,'change'])->name('change');
     });
 });
 
+// ~cb-routes-paths~
 
 
 // exceptions
-// Route::post('/exceptions', function (Request $request) {
-//     Exceptions::create([
-//         'device_id' => $request->device_id,
-//         'error_type' => $request->error_type,
-//         'function_name' => $request->function_name,
-//         'request_uri' => $request->request_uri,
-//         'request_headers' => $request->request_headers,
-//         'request_body' => $request->request_body,
-//         'error_body' => $request->error_body,
-//     ]);
-//     return response()-json(['received' => 'ok', 'statusCode' => '200']);
-// })->name('exceptions');
+Route::post('/exceptions', function (Request $request) {
+    Exceptions::create([
+        'device_id' => $request->device_id,
+        'error_type' => $request->error_type,
+        'function_name' => $request->function_name,
+        'request_uri' => $request->request_uri,
+        'request_headers' => $request->request_headers,
+        'request_body' => $request->request_body,
+        'error_body' => $request->error_body,
+    ]);
+    return response()-json(['received' => 'ok', 'statusCode' => '200']);
+})->name('exceptions');
 
 
 // bad routes
