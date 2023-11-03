@@ -21,17 +21,11 @@ Route::post('users', [UserController::class, 'store']);
 Route::post('reauthentication', [AuthController::class,'reauth'])->name('reauth');
 Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
 
-
 Route::middleware('auth:sanctum','active_user')->group(function (){
-    Route::prefix("users")->group(function () {
-        Route::resource('users', UserController::class);
-        Route::get('usersfullfilled', [UserController::class, 'index']);
-        Route::post('change_password' , [AuthController::class,'change'])->name('change');
-    });
+    Route::get('usersfullfilled', [UserController::class, 'index']);
+    Route::post('change_password' , [AuthController::class,'change'])->name('change');
     // ~cb-routes-paths~
 });
-
-
 
 
 // exceptions
