@@ -6,7 +6,6 @@ use App\Http\Controllers\AuthController;
 
 // ~cb-controller-paths~
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
