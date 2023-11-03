@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-~cb-class-paths~
+
+// ~cb-controller-paths~
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,11 @@ Route::middleware('auth:sanctum','active_user')->group(function (){
         Route::get('usersfullfilled', [UserController::class, 'index']);
         Route::post('change_password' , [AuthController::class,'change'])->name('change');
     });
+
+    // ~cb-routes-paths~
 });
 
-// ~cb-routes-paths~
+
 
 
 // exceptions
