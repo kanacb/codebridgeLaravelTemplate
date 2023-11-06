@@ -28,5 +28,6 @@ class Launcher extends Command
         $this->call('key:generate');
         $this->call('cache:clear');
         $this->call('config:clear');
+        $this->call('app:create-database');
     }
 }

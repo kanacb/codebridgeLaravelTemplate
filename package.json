@@ -2,6 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "launch": "npm run i && npm run c && npm run l && npm run m && npm run serve",
         "dev": "vite",
         "build": "vite build",
         "serve": "php artisan serve --host 0.0.0.0 --port 8000",
@@ -12,10 +13,9 @@
         "moveCMD": "if exist .env_example rename .env_example .env",
         "movePS": "if Test-Path -Path .env_example 'Rename-Item -Path .\\.env_example .\\.env'",
         "welcome": "\"echo \"Welcome to CodeBridge Ai Code Generator\" \"",
-        "i" : "composer install",
-        "l" : "php artisan app:launcher",
-        "m" : "php artisan migrate",
-        "launch" : "npm run i && npm run c && npm run l && npm run m && npm run serve"
+        "i": "composer install",
+        "l": "php artisan app:launcher",
+        "m": "php artisan migrate"
     },
     "devDependencies": {
         "axios": "^1.1.2",

@@ -1,0 +1,1 @@
+CREATE USER 'my-laravel-react'@'localhost' IDENTIFIED BY 'password';
