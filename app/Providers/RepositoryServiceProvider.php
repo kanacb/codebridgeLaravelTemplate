@@ -13,8 +13,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        // ~cb-service-provider~
+        //$this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
