@@ -3,9 +3,9 @@
     "type": "module",
     "scripts": {
         "launch": "npm run i && npm run c && npm run l && npm run m && npm run serve",
+        "serve": "php artisan serve --host 0.0.0.0 --port 8000",
         "dev": "vite",
         "build": "vite build",
-        "serve": "php artisan serve --host 0.0.0.0 --port 8000",
         "prod": "npm run production",
         "ws": "php artisan websockets:serve",
         "clear": "php artisan optimize:clear",
