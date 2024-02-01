@@ -10,7 +10,7 @@
         "ws": "php artisan websockets:serve",
         "clear": "php artisan optimize:clear",
         "c": "(dir 2>&1 *`|npm run moveCMD);&<# rem #>npm run movePS",
-        "moveCMD": "if exist .env.example rename .env.example .env",
+        "moveCMD": "if exist .env_example rename .env_example .env",
         "movePS": "if Test-Path -Path .env_example 'Rename-Item -Path .\\.env_example .\\.env'",
         "welcome": "\"echo \"Welcome to CodeBridge Ai Code Generator\" \"",
         "i": "composer install",
