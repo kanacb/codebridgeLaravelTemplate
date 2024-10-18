@@ -18,8 +18,8 @@
         "i": "composer install",
         "l": "php artisan app:launcher",
         "m": "php artisan migrate",
-        "launch": "npm run i && npm run c && npm run l && npm run m && npm run serve",
-        "launch:mac": "npm run i && npm run l && npm run m && npm run serve"
+        "launch:mac": "npm run i && npm run l && npm run m && npm run serve",
+        "launch": "npm run i && npm run c && npm run l && npm run m && npm run serve"
     },
     "devDependencies": {
         "axios": "^1.1.2",
