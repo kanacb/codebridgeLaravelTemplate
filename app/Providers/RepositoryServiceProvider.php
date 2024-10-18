@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
 
+// ~cb-import-service-repositories~
+// ~cb-import-service-interfaces~
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
