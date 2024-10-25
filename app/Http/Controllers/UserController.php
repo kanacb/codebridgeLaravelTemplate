@@ -11,7 +11,7 @@ use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
-    private UserRepositoryInterface $userRepository;
+    private UserRepositoryInterface $UserRepository;
 
     public function __construct(UserRepositoryInterface $userRepository) 
     {
@@ -27,8 +27,8 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request): JsonResponse 
     {
-        $user = User::create($request->validated());
-        return response()->json(['message' => 'User created successfully']);
+        $data = User::create($request->validated());
+        return response()->json(['message' => 'User created successfully', 'data' => $data]);
     }
 
 }

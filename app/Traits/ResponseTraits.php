@@ -16,9 +16,9 @@ trait ResponseTraits
     {
         return response()->json(
             [
-                'statusCode' => 200,
-                'status' => true,
-                'message' => $message,
+                'skip' => 0,
+                'limit' => 100,
+                'total' => count($data),
                 'data' => $data,
             ],
             Constants::$ERROR_CODE['success']
