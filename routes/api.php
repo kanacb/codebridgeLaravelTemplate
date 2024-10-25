@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::post('authentication' , [AuthController::class,'login'])->name('login');
-Route::post('users', [UserController::class, 'store']);
+Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('reauthentication', [AuthController::class,'reauth'])->name('reauth');
 Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
 
