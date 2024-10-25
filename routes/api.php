@@ -32,16 +32,16 @@ Route::middleware('auth:sanctum','active_user')->group(function (){
 
 // exceptions
 Route::post('/exceptions', function (Request $request) {
-    Exceptions::create([
-        'device_id' => $request->device_id,
-        'error_type' => $request->error_type,
-        'function_name' => $request->function_name,
-        'request_uri' => $request->request_uri,
-        'request_headers' => $request->request_headers,
-        'request_body' => $request->request_body,
-        'error_body' => $request->error_body,
-    ]);
-    return response()-json(['received' => 'ok', 'statusCode' => '200']);
+    // Exceptions::create([
+    //     'device_id' => $request->device_id,
+    //     'error_type' => $request->error_type,
+    //     'function_name' => $request->function_name,
+    //     'request_uri' => $request->request_uri,
+    //     'request_headers' => $request->request_headers,
+    //     'request_body' => $request->request_body,
+    //     'error_body' => $request->error_body,
+    // ]);
+    return response()->json(['received' => 'ok', 'statusCode' => '200']);
 })->name('exceptions');
 
 
