@@ -25,6 +25,7 @@ Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
 
 Route::middleware('auth:sanctum','active_user')->group(function (){
     Route::get('usersfullfilled', [UserController::class, 'index']);
+    Route::get("usersSchema", [UserController::class, "getSchema"]);
     Route::post('change_password' , [AuthController::class,'change'])->name('change');
     // ~cb-routes-paths~
 });

@@ -18,7 +18,6 @@ class AuthController extends Controller
         ]);
     }
 
-
     public function store(Request $request)
     {
         $results = User::create([
@@ -43,7 +42,7 @@ class AuthController extends Controller
                 $token =  $request->user()->createToken('LaravelSanctumAuth')->plainTextToken;
                 return response()->json([
                     "user" => $user,
-                    "token" => $token
+                    "accessToken" => $token
                 ]);
             } else {
                 return response()->json(["login" => false, "message" => "Invalid User Credentials"]);
@@ -55,8 +54,6 @@ class AuthController extends Controller
 
     }
 
-
-
     public function logout(Request $request)
     {
         Auth::logout();
@@ -65,5 +62,9 @@ class AuthController extends Controller
             "user" => $user,
             "logout" => true
         ]);
+    }
+
+    public function genCode(){
+        
     }
 }

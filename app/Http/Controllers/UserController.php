@@ -31,4 +31,10 @@ class UserController extends Controller
         return response()->json(['message' => 'User created successfully', 'data' => $data]);
     }
 
+    public function getSchema() : JsonResponse{
+        return response()->json([
+             \Illuminate\Support\Facades\DB::select("DESCRIBE users")
+        ]);
+    }
+
 }
