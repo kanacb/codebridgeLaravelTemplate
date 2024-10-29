@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CacheController;
 
 // ~cb-controller-paths~ 
 
@@ -23,9 +24,15 @@ Route::post('users', [AuthController::class, 'store'])->name('register');
 Route::post('reauthentication', [AuthController::class,'reauth'])->name('reauth');
 Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
 
+Route::post('/cache/{key}', [CacheController::class, 'set']);
+Route::get('/cache/{key}', [CacheController::class, 'get']);
+Route::delete('/cache/{key}', [CacheController::class, 'delete']);
+Route::get('/cache/{key}', [CacheController::class, 'exists']);
+
 Route::middleware('auth:sanctum','active_user')->group(function (){
     Route::get('usersfullfilled', [UserController::class, 'index']);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
+    Route::resource("users", UserController::class);
     Route::post('change_password' , [AuthController::class,'change'])->name('change');
     // ~cb-routes-paths~
 });
