@@ -32,7 +32,7 @@ Route::get('/cache/{key}', [CacheController::class, 'exists']);
 Route::middleware('auth:sanctum','active_user')->group(function (){
     Route::get('usersfullfilled', [UserController::class, 'index']);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
-    Route::resource("users", UserController::class);
+    Route::get("users", [UserController::class, 'index']);
     Route::post('change_password' , [AuthController::class,'change'])->name('change');
     // ~cb-routes-paths~
 });
