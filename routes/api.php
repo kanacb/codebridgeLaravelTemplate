@@ -6,6 +6,30 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CacheController;
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\PermissionServiceController;
+use App\Http\Controllers\PermissionFieldController;
+use App\Http\Controllers\UserAddressController;
+use App\Http\Controllers\CompanyAddressController;
+use App\Http\Controllers\CompanyPhoneController;
+use App\Http\Controllers\UserPhoneController;
+use App\Http\Controllers\UserInviteController;
+use App\Http\Controllers\StaffinfoController;
+use App\Http\Controllers\DynaLoaderController;
+use App\Http\Controllers\DynaFieldController;
+use App\Http\Controllers\JobQueController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MailQueController;
+use App\Http\Controllers\SuperiorController;
+
 // ~cb-controller-paths~ 
 
 /*
@@ -19,21 +43,69 @@ use App\Http\Controllers\CacheController;
 |
 */
 
-Route::post('authentication' , [AuthController::class,'login'])->name('login');
+Route::post('authentication', [AuthController::class, 'login'])->name('login');
 Route::post('users', [AuthController::class, 'store'])->name('register');
-Route::post('reauthentication', [AuthController::class,'reauth'])->name('reauth');
-Route::post('forgot' , [AuthController::class,'forgot'])->name('forgot');
+Route::post('reauthentication', [AuthController::class, 'reauth'])->name('reauth');
+Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 
 Route::post('/cache/{key}', [CacheController::class, 'set']);
 Route::get('/cache/{key}', [CacheController::class, 'get']);
 Route::delete('/cache/{key}', [CacheController::class, 'delete']);
 Route::get('/cache/{key}', [CacheController::class, 'exists']);
 
-Route::middleware('auth:sanctum','active_user')->group(function (){
+Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
     Route::get("users", [UserController::class, 'index']);
-    Route::post('change_password' , [AuthController::class,'change'])->name('change');
+    Route::post('change_password', [AuthController::class, 'change'])->name('change');
+
+    Route::resource("companies", CompanyController::class);
+    Route::get("companiesSchema", [CompanyController::class, "getSchema"]);
+    Route::resource("branches", BranchController::class);
+    Route::get("branchesSchema", [BranchController::class, "getSchema"]);
+    Route::resource("departments", DepartmentController::class);
+    Route::get("departmentsSchema", [DepartmentController::class, "getSchema"]);
+    Route::resource("roles", RoleController::class);
+    Route::get("rolesSchema", [RoleController::class, "getSchema"]);
+    Route::resource("positions", PositionController::class);
+    Route::get("positionsSchema", [PositionController::class, "getSchema"]);
+    Route::resource("profiles", ProfileController::class);
+    Route::get("profilesSchema", [ProfileController::class, "getSchema"]);
+    Route::resource("templates", TemplateController::class);
+    Route::get("templatesSchema", [TemplateController::class, "getSchema"]);
+    Route::resource("mails", MailController::class);
+    Route::get("mailsSchema", [MailController::class, "getSchema"]);
+    Route::resource("tests", TestController::class);
+    Route::get("testsSchema", [TestController::class, "getSchema"]);
+    Route::resource("permissionServices", PermissionServiceController::class);
+    Route::get("permissionServicesSchema", [PermissionServiceController::class, "getSchema"]);
+    Route::resource("permissionFields", PermissionFieldController::class);
+    Route::get("permissionFieldsSchema", [PermissionFieldController::class, "getSchema"]);
+    Route::resource("userAddresses", UserAddressController::class);
+    Route::get("userAddressesSchema", [UserAddressController::class, "getSchema"]);
+    Route::resource("companyAddresses", CompanyAddressController::class);
+    Route::get("companyAddressesSchema", [CompanyAddressController::class, "getSchema"]);
+    Route::resource("companyPhones", CompanyPhoneController::class);
+    Route::get("companyPhonesSchema", [CompanyPhoneController::class, "getSchema"]);
+    Route::resource("userPhones", UserPhoneController::class);
+    Route::get("userPhonesSchema", [UserPhoneController::class, "getSchema"]);
+    Route::resource("userInvites", UserInviteController::class);
+    Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
+    Route::resource("staffinfo", StaffinfoController::class);
+    Route::get("staffinfoSchema", [StaffinfoController::class, "getSchema"]);
+    Route::resource("dynaLoader", DynaLoaderController::class);
+    Route::get("dynaLoaderSchema", [DynaLoaderController::class, "getSchema"]);
+    Route::resource("dynaFields", DynaFieldController::class);
+    Route::get("dynaFieldsSchema", [DynaFieldController::class, "getSchema"]);
+    Route::resource("jobQues", JobQueController::class);
+    Route::get("jobQuesSchema", [JobQueController::class, "getSchema"]);
+    Route::resource("employees", EmployeeController::class);
+    Route::get("employeesSchema", [EmployeeController::class, "getSchema"]);
+    Route::resource("mailQues", MailQueController::class);
+    Route::get("mailQuesSchema", [MailQueController::class, "getSchema"]);
+    Route::resource("superior", SuperiorController::class);
+    Route::get("superiorSchema", [SuperiorController::class, "getSchema"]);
+
     // ~cb-routes-paths~
 });
 
@@ -54,7 +126,7 @@ Route::post('/exceptions', function (Request $request) {
 
 
 // bad routes
-Route::any('{url?}/{sub_url?}/{params?}', function(Request $request, $url = null, $sub_url = null, $params = null){
+Route::any('{url?}/{sub_url?}/{params?}', function (Request $request, $url = null, $sub_url = null, $params = null) {
     return response()->json([
         'statusCode' => 404,
         'status' => false,
@@ -63,7 +135,7 @@ Route::any('{url?}/{sub_url?}/{params?}', function(Request $request, $url = null
             [
                 'path' => $request->path(),
                 'method' => $request->method(),
-                'no_such_url' => $url .'/'.$sub_url,
+                'no_such_url' => $url . '/' . $sub_url,
                 'params' => $params,
                 'message'   => 'API Not Found.'
             ]
