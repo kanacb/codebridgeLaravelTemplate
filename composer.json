@@ -5,6 +5,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
+        "aws/aws-sdk-php": "^3.324",
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
