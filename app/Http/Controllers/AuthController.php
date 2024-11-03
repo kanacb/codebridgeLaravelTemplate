@@ -52,6 +52,17 @@ class AuthController extends Controller
         }
     }
 
+    public function reauthenticate(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return response()->json(['user' => $user], 200);
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
