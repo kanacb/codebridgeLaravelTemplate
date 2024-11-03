@@ -1,9 +1,7 @@
 <?php
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-use App\Http\Controllers\auth\authController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +14,7 @@ use App\Http\Controllers\auth\authController;
 |
 */
 
+Route::get('reauthentication', [AuthController::class, 'reauthentication']);
 Route::any('{any}', function () {
     return redirect(env('FRONTEND_URL',"http://localhost:3000"));
 })->where('any', '.*');

@@ -45,7 +45,6 @@ use App\Http\Controllers\SuperiorController;
 
 Route::get('authentication', [AuthController::class, 'login'])->name('login');
 Route::post('users', [AuthController::class, 'store'])->name('register');
-Route::get('reauthentication', [AuthController::class, 'reauthentication'])->name('reauth');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 Route::get('mailQues', [MailQueController::class, 'store'])->name('sendmail');
 Route::resource("userInvites", UserInviteController::class);
