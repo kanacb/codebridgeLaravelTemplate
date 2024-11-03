@@ -22,19 +22,19 @@ class CreateStaffinfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:250',
-            'namenric' => 'string|max:250',
-            'compname' => 'string|max:250',
-            'deptcode' => 'string|max:250',
-            'deptdesc' => 'string|max:250',
-            'sectdesc' => 'string|max:250',
-            'designation' => 'string|max:250',
-            'email' => 'string|max:250',
-            'resign' => 'string|max:250',
-            'supervisor' => 'string|max:250',
-            'empgroup' => 'string|max:250',
-            'empgradecode' => 'string|max:250',
-            'terminationdate' => 'string|max:250'
+            'name' => 'string',
+'namenric' => 'string',
+'compname' => 'string',
+'deptcode' => 'string',
+'deptdesc' => 'string',
+'sectdesc' => 'string',
+'designation' => 'string',
+'email' => 'string',
+'resign' => 'string',
+'supervisor' => 'string',
+'empgroup' => 'string',
+'empgradecode' => 'string',
+'terminationdate' => 'string'
         ];
     }
 }

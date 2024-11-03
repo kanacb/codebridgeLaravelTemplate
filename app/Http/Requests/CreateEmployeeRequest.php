@@ -22,12 +22,12 @@ class CreateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'empNo' => 'required|min:3|string|max:250',
-            'name' => 'required|min:3|string|max:250',
-            'fullname' => 'required|min:3|string|max:250',
-            'resigned' => 'required|min:3|string|max:250',
-            'empGroup' => 'required|min:3|string|max:250',
-            'empCode' => 'required|min:3|string|max:250'
+            'empNo' => 'required|string',
+'name' => 'required|string',
+'fullname' => 'required|string',
+'resigned' => 'required|string',
+'empGroup' => 'required|string',
+'empCode' => 'required|string'
         ];
     }
 }

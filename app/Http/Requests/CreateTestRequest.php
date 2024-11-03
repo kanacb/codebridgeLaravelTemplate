@@ -22,9 +22,9 @@ class CreateTestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'stack' => 'string|max:250',
-            'service' => 'string|max:250',
-            'notes' => 'string|max:250'
+            'stack' => 'string',
+'service' => 'string',
+'notes' => 'string'
         ];
     }
 }

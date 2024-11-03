@@ -22,8 +22,8 @@ class CreateRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:250',
-            'description' => 'string|max:250'
+            'name' => 'string',
+'description' => 'string'
         ];
     }
 }

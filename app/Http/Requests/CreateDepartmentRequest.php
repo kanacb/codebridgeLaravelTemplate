@@ -22,8 +22,8 @@ class CreateDepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:250',
-            'code' => 'string|max:250'
+            'name' => 'string',
+'code' => 'string'
         ];
     }
 }

@@ -47,11 +47,9 @@ class AuthController extends Controller
             } else {
                 return response()->json(["login" => false, "message" => "Invalid User Credentials"]);
             }
-        }  catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return $this->exceptionErrorResponse($exception, __CLASS__, __FUNCTION__, __LINE__);
         }
-
-
     }
 
     public function logout(Request $request)
@@ -62,9 +60,5 @@ class AuthController extends Controller
             "user" => $user,
             "logout" => true
         ]);
-    }
-
-    public function genCode(){
-        
     }
 }

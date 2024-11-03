@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Company;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Http\Requests\CreateCompanyRequest;
@@ -18,14 +17,55 @@ class CompanyController extends Controller
         $this->CompanyRepository = $userRepository;
     }
 
-    public function index(): JsonResponse 
+    public function index(Request $request): JsonResponse 
     {
-        return response()->json([
-            'total' => $this->CompanyRepository->getAllCompanies()->count(),
-            'limit' => 0,
-            'skip' => 0,
-            'data' => $this->CompanyRepository->getAllCompanies()
-        ]);
+        $query = Company::query();
+
+        // Handle specific FeathersJS query parameters
+        if ($request->has('name')) {$query->where('name', $request->input('name'));}
+if ($request->has('companyNo')) {$query->where('companyNo', $request->input('companyNo'));}
+if ($request->has('newCompanyNumber')) {$query->where('newCompanyNumber', $request->input('newCompanyNumber'));}
+if ($request->has('DateIncorporated')) {$query->where('DateIncorporated', $request->input('DateIncorporated'));}
+if ($request->has('isdefault')) {$query->where('isdefault', $request->input('isdefault'));}
+
+        // Handle pagination
+        $limit = $request->input('$limit', 10);  // Default to 10 items
+        $skip = $request->input('$skip', 0);  // Default to no offset
+
+        $query->limit($limit)->offset($skip);
+
+        // Handle sorting
+        if ($request->has('$sort')) {
+            foreach ($request->input('$sort') as $field => $order) {
+                $query->orderBy($field, $order == 1 ? 'asc' : 'desc');
+            }
+        }
+
+        if ($request->has('$populate')) {
+            $populateParams = $request->input('$populate');
+
+            // Initialize an array to hold the relationships and their field constraints
+            $relationships = [];
+
+            foreach ($populateParams as $populate) {
+                $relationship = $populate['path'];
+                $fields = $populate['select'] ?? ['*'];
+
+                // Add the relationship and its fields to the array
+                $relationships[$relationship] = function ($query) use ($fields) {
+                    $query->select($fields);
+                };
+            }
+
+            // Apply eager loading with specific fields
+            $query->with($relationships);
+        }
+
+        // Execute and get the results
+        $results = $query->get();
+
+        // Return as a JSON resource (optional)
+        return response()->json(["data" => $results]);
     }
 
     public function store(CreateCompanyRequest $request): JsonResponse 
@@ -67,13 +107,13 @@ class CompanyController extends Controller
             'updatedBy' => function ($query) {
                 $query->select('id', 'name');
             }
-        ])->findOrFail($id);
+        ])->findOrFail($id)->$query->get();
         return response()->json($data);
     }
 
-    public function update(CreateCompanyRequest $request, $id): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->input();
+        $newData = $request->except(["created_at","updated_at"]);
         $data = $this->CompanyRepository->updateCompany( $id, (array) $newData);
         return response()->json(['message' => 'Company updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }

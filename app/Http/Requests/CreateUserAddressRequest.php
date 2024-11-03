@@ -22,13 +22,13 @@ class CreateUserAddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'Street1' => 'string|max:250',
-            'Street2' => 'string|max:250',
-            'Poscode' => 'string|max:250',
-            'City' => 'string|max:250',
-            'State' => 'string|max:250',
-            'Province' => 'string|max:250',
-            'Country' => 'string|max:250'
+            'Street1' => 'string',
+'Street2' => 'string',
+'Poscode' => 'string',
+'City' => 'string',
+'State' => 'string',
+'Province' => 'string',
+'Country' => 'string'
         ];
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\UserInvite;
 use App\Interfaces\UserInviteRepositoryInterface;
 use App\Http\Requests\CreateUserInviteRequest;
@@ -18,14 +17,54 @@ class UserInviteController extends Controller
         $this->UserInviteRepository = $userRepository;
     }
 
-    public function index(): JsonResponse 
+    public function index(Request $request): JsonResponse 
     {
-        return response()->json([
-            'total' => $this->UserInviteRepository->getAllUserInvites()->count(),
-            'limit' => 0,
-            'skip' => 0,
-            'data' => $this->UserInviteRepository->getAllUserInvites()
-        ]);
+        $query = UserInvite::query();
+
+        // Handle specific FeathersJS query parameters
+        if ($request->has('emailToInvite')) {$query->where('emailToInvite', $request->input('emailToInvite'));}
+if ($request->has('status')) {$query->where('status', $request->input('status'));}
+if ($request->has('code')) {$query->where('code', $request->input('code'));}
+if ($request->has('sendMailCounter')) {$query->where('sendMailCounter', $request->input('sendMailCounter'));}
+
+        // Handle pagination
+        $limit = $request->input('$limit', 10);  // Default to 10 items
+        $skip = $request->input('$skip', 0);  // Default to no offset
+
+        $query->limit($limit)->offset($skip);
+
+        // Handle sorting
+        if ($request->has('$sort')) {
+            foreach ($request->input('$sort') as $field => $order) {
+                $query->orderBy($field, $order == 1 ? 'asc' : 'desc');
+            }
+        }
+
+        if ($request->has('$populate')) {
+            $populateParams = $request->input('$populate');
+
+            // Initialize an array to hold the relationships and their field constraints
+            $relationships = [];
+
+            foreach ($populateParams as $populate) {
+                $relationship = $populate['path'];
+                $fields = $populate['select'] ?? ['*'];
+
+                // Add the relationship and its fields to the array
+                $relationships[$relationship] = function ($query) use ($fields) {
+                    $query->select($fields);
+                };
+            }
+
+            // Apply eager loading with specific fields
+            $query->with($relationships);
+        }
+
+        // Execute and get the results
+        $results = $query->get();
+
+        // Return as a JSON resource (optional)
+        return response()->json(["data" => $results]);
     }
 
     public function store(CreateUserInviteRequest $request): JsonResponse 
@@ -67,13 +106,13 @@ class UserInviteController extends Controller
             'updatedBy' => function ($query) {
                 $query->select('id', 'name');
             }
-        ])->findOrFail($id);
+        ])->findOrFail($id)->$query->get();
         return response()->json($data);
     }
 
-    public function update(CreateUserInviteRequest $request, $id): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->input();
+        $newData = $request->except(["created_at","updated_at"]);
         $data = $this->UserInviteRepository->updateUserInvite( $id, (array) $newData);
         return response()->json(['message' => 'UserInvite updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }

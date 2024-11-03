@@ -22,7 +22,7 @@ class CreatePermissionServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'service' => 'string|max:250'
+            'service' => 'string'
         ];
     }
 }

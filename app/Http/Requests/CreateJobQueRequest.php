@@ -22,10 +22,10 @@ class CreateJobQueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|string|max:250',
-            'type' => 'required|min:3|string|max:250',
-            'fromService' => 'required|min:3|string|max:250',
-            'toService' => 'required|min:3|string|max:250'
+            'name' => 'required|string',
+'type' => 'required|string',
+'fromService' => 'required|string',
+'toService' => 'required|string'
         ];
     }
 }

@@ -22,11 +22,10 @@ class CreateTemplateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:250',
-            'subject' => 'string|max:250',
-            'body' => 'string|max:250',
-            'variables' => 'string|max:250',
-            'image' => 'string|max:250'
+            'name' => 'string',
+'subject' => 'string',
+'body' => 'string',
+'image' => 'string'
         ];
     }
 }

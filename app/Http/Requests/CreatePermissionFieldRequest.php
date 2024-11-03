@@ -22,8 +22,8 @@ class CreatePermissionFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'service' => 'string|max:250',
-            'fieldId' => 'string|max:250'
+            'service' => 'string',
+'fieldId' => 'string'
         ];
     }
 }

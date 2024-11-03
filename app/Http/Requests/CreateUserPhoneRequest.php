@@ -21,6 +21,8 @@ class CreateUserPhoneRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            
+        ];
     }
 }

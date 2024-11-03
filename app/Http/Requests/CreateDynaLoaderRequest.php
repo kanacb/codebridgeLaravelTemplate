@@ -22,9 +22,9 @@ class CreateDynaLoaderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from' => 'string|max:250',
-            'to2' => 'string|max:250',
-            'name' => 'required|min:3|string|max:250'
+            'from' => 'string',
+'to2' => 'string',
+'name' => 'required|string'
         ];
     }
 }

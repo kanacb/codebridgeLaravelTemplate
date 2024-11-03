@@ -22,10 +22,10 @@ class CreateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|string|max:250',
-            'image' => 'required|min:3|string|max:250',
-            'bio' => 'string|max:250',
-            'skills' => 'string|max:250'
+            'name' => 'required|string',
+'image' => 'required|string',
+'bio' => 'string',
+'skills' => 'string'
         ];
     }
 }

@@ -22,9 +22,9 @@ class CreateMailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'string|max:250',
-            'subject' => 'string|max:250',
-            'body' => 'string|max:250'
+            'status' => 'string',
+'subject' => 'string',
+'body' => 'string'
         ];
     }
 }

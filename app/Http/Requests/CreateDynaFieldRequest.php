@@ -22,15 +22,15 @@ class CreateDynaFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from' => 'string|max:250',
-            'to2' => 'string|max:250',
-            'toType' => 'string|max:250',
-            'fromRefService' => 'string|max:250',
-            'toRefService' => 'string|max:250',
-            'fromIdentityFieldName' => 'string|max:250',
-            'toIdentityFieldName' => 'string|max:250',
-            'fromRelationship' => 'string|max:250',
-            'toRelationship' => 'string|max:250'
+            'from' => 'string',
+'to2' => 'string',
+'toType' => 'string',
+'fromRefService' => 'string',
+'toRefService' => 'string',
+'fromIdentityFieldName' => 'string',
+'toIdentityFieldName' => 'string',
+'fromRelationship' => 'string',
+'toRelationship' => 'string'
         ];
     }
 }

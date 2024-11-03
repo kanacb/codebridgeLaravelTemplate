@@ -22,15 +22,14 @@ class CreateMailQueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|string|max:250',
-            'type' => 'required|min:3|string|max:250',
-            'data' => 'required|min:3|string|max:250',
-            'from' => 'required|min:3|string|max:250',
-            'recipients' => 'required|min:3|string|max:250',
-            'status' => 'required|min:3|string|max:250',
-            'errors' => 'required|min:3|string|max:250',
-            'template' => 'required|min:3|string|max:250',
-            'content' => 'required|min:3|string|max:250'
+            'name' => 'required|string',
+'type' => 'required|string',
+'data' => 'required|string',
+'from' => 'required|string',
+'recipients' => 'required|string',
+'status' => 'string',
+'templateId' => 'required|string',
+'content' => 'string'
         ];
     }
 }

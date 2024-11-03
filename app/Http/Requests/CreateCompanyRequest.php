@@ -22,8 +22,8 @@ class CreateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:250',
-            'companyNo' => 'required|min:3|string|max:250'
+            'name' => 'string',
+'companyNo' => 'required|string'
         ];
     }
 }

@@ -22,9 +22,9 @@ class CreatePositionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:250',
-            'description' => 'string|max:250',
-            'abbr' => 'string|max:250'
+            'name' => 'string',
+'description' => 'string',
+'abbr' => 'string'
         ];
     }
 }
