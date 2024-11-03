@@ -12,19 +12,25 @@ class BranchController extends Controller
 {
     private BranchRepositoryInterface $BranchRepository;
 
-    public function __construct(BranchRepositoryInterface $userRepository) 
+    public function __construct(BranchRepositoryInterface $userRepository)
     {
         $this->BranchRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Branch::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('companyId')) {$query->where('companyId', $request->input('companyId'));}
-if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isDefault'));}
+        if ($request->has('companyId')) {
+            $query->where('companyId', $request->input('companyId'));
+        }
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('isDefault')) {
+            $query->where('isDefault', $request->input('isDefault'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -63,10 +69,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateBranchRequest $request): JsonResponse 
+    public function store(CreateBranchRequest $request): JsonResponse
     {
         $data = Branch::create($request->validated());
         return response()->json(['message' => 'Branch created successfully', 'data' => $data]);
@@ -111,8 +117,8 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->BranchRepository->updateBranch( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->BranchRepository->updateBranch($id, (array) $newData);
         return response()->json(['message' => 'Branch updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -123,10 +129,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         return response()->json(['message' => 'Branch deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE branches")
         ]);
     }
-
 }

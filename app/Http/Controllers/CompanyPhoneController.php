@@ -12,22 +12,34 @@ class CompanyPhoneController extends Controller
 {
     private CompanyPhoneRepositoryInterface $CompanyPhoneRepository;
 
-    public function __construct(CompanyPhoneRepositoryInterface $userRepository) 
+    public function __construct(CompanyPhoneRepositoryInterface $userRepository)
     {
         $this->CompanyPhoneRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = CompanyPhone::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('companyId')) {$query->where('companyId', $request->input('companyId'));}
-if ($request->has('countryCode')) {$query->where('countryCode', $request->input('countryCode'));}
-if ($request->has('operatorCode')) {$query->where('operatorCode', $request->input('operatorCode'));}
-if ($request->has('number')) {$query->where('number', $request->input('number'));}
-if ($request->has('type')) {$query->where('type', $request->input('type'));}
-if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isDefault'));}
+        if ($request->has('companyId')) {
+            $query->where('companyId', $request->input('companyId'));
+        }
+        if ($request->has('countryCode')) {
+            $query->where('countryCode', $request->input('countryCode'));
+        }
+        if ($request->has('operatorCode')) {
+            $query->where('operatorCode', $request->input('operatorCode'));
+        }
+        if ($request->has('number')) {
+            $query->where('number', $request->input('number'));
+        }
+        if ($request->has('type')) {
+            $query->where('type', $request->input('type'));
+        }
+        if ($request->has('isDefault')) {
+            $query->where('isDefault', $request->input('isDefault'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -66,10 +78,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateCompanyPhoneRequest $request): JsonResponse 
+    public function store(CreateCompanyPhoneRequest $request): JsonResponse
     {
         $data = CompanyPhone::create($request->validated());
         return response()->json(['message' => 'CompanyPhone created successfully', 'data' => $data]);
@@ -114,8 +126,8 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->CompanyPhoneRepository->updateCompanyPhone( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->CompanyPhoneRepository->updateCompanyPhone($id, (array) $newData);
         return response()->json(['message' => 'CompanyPhone updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -126,10 +138,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         return response()->json(['message' => 'CompanyPhone deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE companyPhones")
         ]);
     }
-
 }

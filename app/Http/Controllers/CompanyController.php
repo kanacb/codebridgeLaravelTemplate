@@ -12,21 +12,31 @@ class CompanyController extends Controller
 {
     private CompanyRepositoryInterface $CompanyRepository;
 
-    public function __construct(CompanyRepositoryInterface $userRepository) 
+    public function __construct(CompanyRepositoryInterface $userRepository)
     {
         $this->CompanyRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Company::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('companyNo')) {$query->where('companyNo', $request->input('companyNo'));}
-if ($request->has('newCompanyNumber')) {$query->where('newCompanyNumber', $request->input('newCompanyNumber'));}
-if ($request->has('DateIncorporated')) {$query->where('DateIncorporated', $request->input('DateIncorporated'));}
-if ($request->has('isdefault')) {$query->where('isdefault', $request->input('isdefault'));}
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('companyNo')) {
+            $query->where('companyNo', $request->input('companyNo'));
+        }
+        if ($request->has('newCompanyNumber')) {
+            $query->where('newCompanyNumber', $request->input('newCompanyNumber'));
+        }
+        if ($request->has('DateIncorporated')) {
+            $query->where('DateIncorporated', $request->input('DateIncorporated'));
+        }
+        if ($request->has('isdefault')) {
+            $query->where('isdefault', $request->input('isdefault'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -65,10 +75,10 @@ if ($request->has('isdefault')) {$query->where('isdefault', $request->input('isd
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateCompanyRequest $request): JsonResponse 
+    public function store(CreateCompanyRequest $request): JsonResponse
     {
         $data = Company::create($request->validated());
         return response()->json(['message' => 'Company created successfully', 'data' => $data]);
@@ -113,8 +123,8 @@ if ($request->has('isdefault')) {$query->where('isdefault', $request->input('isd
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->CompanyRepository->updateCompany( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->CompanyRepository->updateCompany($id, (array) $newData);
         return response()->json(['message' => 'Company updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -125,10 +135,10 @@ if ($request->has('isdefault')) {$query->where('isdefault', $request->input('isd
         return response()->json(['message' => 'Company deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE companies")
         ]);
     }
-
 }

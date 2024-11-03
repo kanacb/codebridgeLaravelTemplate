@@ -12,20 +12,28 @@ class TemplateController extends Controller
 {
     private TemplateRepositoryInterface $TemplateRepository;
 
-    public function __construct(TemplateRepositoryInterface $userRepository) 
+    public function __construct(TemplateRepositoryInterface $userRepository)
     {
         $this->TemplateRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Template::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('subject')) {$query->where('subject', $request->input('subject'));}
-if ($request->has('body')) {$query->where('body', $request->input('body'));}
-if ($request->has('image')) {$query->where('image', $request->input('image'));}
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('subject')) {
+            $query->where('subject', $request->input('subject'));
+        }
+        if ($request->has('body')) {
+            $query->where('body', $request->input('body'));
+        }
+        if ($request->has('image')) {
+            $query->where('image', $request->input('image'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -64,10 +72,10 @@ if ($request->has('image')) {$query->where('image', $request->input('image'));}
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateTemplateRequest $request): JsonResponse 
+    public function store(CreateTemplateRequest $request): JsonResponse
     {
         $data = Template::create($request->validated());
         return response()->json(['message' => 'Template created successfully', 'data' => $data]);
@@ -112,8 +120,8 @@ if ($request->has('image')) {$query->where('image', $request->input('image'));}
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->TemplateRepository->updateTemplate( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->TemplateRepository->updateTemplate($id, (array) $newData);
         return response()->json(['message' => 'Template updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -124,10 +132,10 @@ if ($request->has('image')) {$query->where('image', $request->input('image'));}
         return response()->json(['message' => 'Template deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE templates")
         ]);
     }
-
 }

@@ -12,24 +12,40 @@ class UserAddressController extends Controller
 {
     private UserAddressRepositoryInterface $UserAddressRepository;
 
-    public function __construct(UserAddressRepositoryInterface $userRepository) 
+    public function __construct(UserAddressRepositoryInterface $userRepository)
     {
         $this->UserAddressRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = UserAddress::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('userId')) {$query->where('userId', $request->input('userId'));}
-if ($request->has('Street1')) {$query->where('Street1', $request->input('Street1'));}
-if ($request->has('Street2')) {$query->where('Street2', $request->input('Street2'));}
-if ($request->has('Poscode')) {$query->where('Poscode', $request->input('Poscode'));}
-if ($request->has('City')) {$query->where('City', $request->input('City'));}
-if ($request->has('State')) {$query->where('State', $request->input('State'));}
-if ($request->has('Province')) {$query->where('Province', $request->input('Province'));}
-if ($request->has('Country')) {$query->where('Country', $request->input('Country'));}
+        if ($request->has('userId')) {
+            $query->where('userId', $request->input('userId'));
+        }
+        if ($request->has('Street1')) {
+            $query->where('Street1', $request->input('Street1'));
+        }
+        if ($request->has('Street2')) {
+            $query->where('Street2', $request->input('Street2'));
+        }
+        if ($request->has('Poscode')) {
+            $query->where('Poscode', $request->input('Poscode'));
+        }
+        if ($request->has('City')) {
+            $query->where('City', $request->input('City'));
+        }
+        if ($request->has('State')) {
+            $query->where('State', $request->input('State'));
+        }
+        if ($request->has('Province')) {
+            $query->where('Province', $request->input('Province'));
+        }
+        if ($request->has('Country')) {
+            $query->where('Country', $request->input('Country'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -68,10 +84,10 @@ if ($request->has('Country')) {$query->where('Country', $request->input('Country
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateUserAddressRequest $request): JsonResponse 
+    public function store(CreateUserAddressRequest $request): JsonResponse
     {
         $data = UserAddress::create($request->validated());
         return response()->json(['message' => 'UserAddress created successfully', 'data' => $data]);
@@ -116,8 +132,8 @@ if ($request->has('Country')) {$query->where('Country', $request->input('Country
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->UserAddressRepository->updateUserAddress( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->UserAddressRepository->updateUserAddress($id, (array) $newData);
         return response()->json(['message' => 'UserAddress updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -128,10 +144,10 @@ if ($request->has('Country')) {$query->where('Country', $request->input('Country
         return response()->json(['message' => 'UserAddress deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE userAddresses")
         ]);
     }
-
 }

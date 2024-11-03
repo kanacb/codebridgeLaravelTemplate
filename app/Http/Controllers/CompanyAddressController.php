@@ -12,25 +12,43 @@ class CompanyAddressController extends Controller
 {
     private CompanyAddressRepositoryInterface $CompanyAddressRepository;
 
-    public function __construct(CompanyAddressRepositoryInterface $userRepository) 
+    public function __construct(CompanyAddressRepositoryInterface $userRepository)
     {
         $this->CompanyAddressRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = CompanyAddress::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('companyId')) {$query->where('companyId', $request->input('companyId'));}
-if ($request->has('Street1')) {$query->where('Street1', $request->input('Street1'));}
-if ($request->has('Street2')) {$query->where('Street2', $request->input('Street2'));}
-if ($request->has('Poscode')) {$query->where('Poscode', $request->input('Poscode'));}
-if ($request->has('City')) {$query->where('City', $request->input('City'));}
-if ($request->has('State')) {$query->where('State', $request->input('State'));}
-if ($request->has('Province')) {$query->where('Province', $request->input('Province'));}
-if ($request->has('Country')) {$query->where('Country', $request->input('Country'));}
-if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isDefault'));}
+        if ($request->has('companyId')) {
+            $query->where('companyId', $request->input('companyId'));
+        }
+        if ($request->has('Street1')) {
+            $query->where('Street1', $request->input('Street1'));
+        }
+        if ($request->has('Street2')) {
+            $query->where('Street2', $request->input('Street2'));
+        }
+        if ($request->has('Poscode')) {
+            $query->where('Poscode', $request->input('Poscode'));
+        }
+        if ($request->has('City')) {
+            $query->where('City', $request->input('City'));
+        }
+        if ($request->has('State')) {
+            $query->where('State', $request->input('State'));
+        }
+        if ($request->has('Province')) {
+            $query->where('Province', $request->input('Province'));
+        }
+        if ($request->has('Country')) {
+            $query->where('Country', $request->input('Country'));
+        }
+        if ($request->has('isDefault')) {
+            $query->where('isDefault', $request->input('isDefault'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -69,10 +87,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateCompanyAddressRequest $request): JsonResponse 
+    public function store(CreateCompanyAddressRequest $request): JsonResponse
     {
         $data = CompanyAddress::create($request->validated());
         return response()->json(['message' => 'CompanyAddress created successfully', 'data' => $data]);
@@ -117,8 +135,8 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->CompanyAddressRepository->updateCompanyAddress( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->CompanyAddressRepository->updateCompanyAddress($id, (array) $newData);
         return response()->json(['message' => 'CompanyAddress updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -129,10 +147,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         return response()->json(['message' => 'CompanyAddress deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE companyAddresses")
         ]);
     }
-
 }

@@ -12,28 +12,52 @@ class DynaFieldController extends Controller
 {
     private DynaFieldRepositoryInterface $DynaFieldRepository;
 
-    public function __construct(DynaFieldRepositoryInterface $userRepository) 
+    public function __construct(DynaFieldRepositoryInterface $userRepository)
     {
         $this->DynaFieldRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = DynaField::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('dynaLoader')) {$query->where('dynaLoader', $request->input('dynaLoader'));}
-if ($request->has('from')) {$query->where('from', $request->input('from'));}
-if ($request->has('fromType')) {$query->where('fromType', $request->input('fromType'));}
-if ($request->has('to2')) {$query->where('to2', $request->input('to2'));}
-if ($request->has('toType')) {$query->where('toType', $request->input('toType'));}
-if ($request->has('fromRefService')) {$query->where('fromRefService', $request->input('fromRefService'));}
-if ($request->has('toRefService')) {$query->where('toRefService', $request->input('toRefService'));}
-if ($request->has('fromIdentityFieldName')) {$query->where('fromIdentityFieldName', $request->input('fromIdentityFieldName'));}
-if ($request->has('toIdentityFieldName')) {$query->where('toIdentityFieldName', $request->input('toIdentityFieldName'));}
-if ($request->has('fromRelationship')) {$query->where('fromRelationship', $request->input('fromRelationship'));}
-if ($request->has('toRelationship')) {$query->where('toRelationship', $request->input('toRelationship'));}
-if ($request->has('duplicates')) {$query->where('duplicates', $request->input('duplicates'));}
+        if ($request->has('dynaLoader')) {
+            $query->where('dynaLoader', $request->input('dynaLoader'));
+        }
+        if ($request->has('from')) {
+            $query->where('from', $request->input('from'));
+        }
+        if ($request->has('fromType')) {
+            $query->where('fromType', $request->input('fromType'));
+        }
+        if ($request->has('to2')) {
+            $query->where('to2', $request->input('to2'));
+        }
+        if ($request->has('toType')) {
+            $query->where('toType', $request->input('toType'));
+        }
+        if ($request->has('fromRefService')) {
+            $query->where('fromRefService', $request->input('fromRefService'));
+        }
+        if ($request->has('toRefService')) {
+            $query->where('toRefService', $request->input('toRefService'));
+        }
+        if ($request->has('fromIdentityFieldName')) {
+            $query->where('fromIdentityFieldName', $request->input('fromIdentityFieldName'));
+        }
+        if ($request->has('toIdentityFieldName')) {
+            $query->where('toIdentityFieldName', $request->input('toIdentityFieldName'));
+        }
+        if ($request->has('fromRelationship')) {
+            $query->where('fromRelationship', $request->input('fromRelationship'));
+        }
+        if ($request->has('toRelationship')) {
+            $query->where('toRelationship', $request->input('toRelationship'));
+        }
+        if ($request->has('duplicates')) {
+            $query->where('duplicates', $request->input('duplicates'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -72,10 +96,10 @@ if ($request->has('duplicates')) {$query->where('duplicates', $request->input('d
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateDynaFieldRequest $request): JsonResponse 
+    public function store(CreateDynaFieldRequest $request): JsonResponse
     {
         $data = DynaField::create($request->validated());
         return response()->json(['message' => 'DynaField created successfully', 'data' => $data]);
@@ -120,8 +144,8 @@ if ($request->has('duplicates')) {$query->where('duplicates', $request->input('d
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->DynaFieldRepository->updateDynaField( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->DynaFieldRepository->updateDynaField($id, (array) $newData);
         return response()->json(['message' => 'DynaField updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -132,10 +156,10 @@ if ($request->has('duplicates')) {$query->where('duplicates', $request->input('d
         return response()->json(['message' => 'DynaField deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE dynaFields")
         ]);
     }
-
 }

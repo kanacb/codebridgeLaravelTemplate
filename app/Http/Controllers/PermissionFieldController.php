@@ -12,25 +12,43 @@ class PermissionFieldController extends Controller
 {
     private PermissionFieldRepositoryInterface $PermissionFieldRepository;
 
-    public function __construct(PermissionFieldRepositoryInterface $userRepository) 
+    public function __construct(PermissionFieldRepositoryInterface $userRepository)
     {
         $this->PermissionFieldRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = PermissionField::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('profile')) {$query->where('profile', $request->input('profile'));}
-if ($request->has('service')) {$query->where('service', $request->input('service'));}
-if ($request->has('fieldId')) {$query->where('fieldId', $request->input('fieldId'));}
-if ($request->has('read')) {$query->where('read', $request->input('read'));}
-if ($request->has('readAll')) {$query->where('readAll', $request->input('readAll'));}
-if ($request->has('updateOwn')) {$query->where('updateOwn', $request->input('updateOwn'));}
-if ($request->has('updateAll')) {$query->where('updateAll', $request->input('updateAll'));}
-if ($request->has('deleteOwn')) {$query->where('deleteOwn', $request->input('deleteOwn'));}
-if ($request->has('deleteAll')) {$query->where('deleteAll', $request->input('deleteAll'));}
+        if ($request->has('profile')) {
+            $query->where('profile', $request->input('profile'));
+        }
+        if ($request->has('service')) {
+            $query->where('service', $request->input('service'));
+        }
+        if ($request->has('fieldId')) {
+            $query->where('fieldId', $request->input('fieldId'));
+        }
+        if ($request->has('read')) {
+            $query->where('read', $request->input('read'));
+        }
+        if ($request->has('readAll')) {
+            $query->where('readAll', $request->input('readAll'));
+        }
+        if ($request->has('updateOwn')) {
+            $query->where('updateOwn', $request->input('updateOwn'));
+        }
+        if ($request->has('updateAll')) {
+            $query->where('updateAll', $request->input('updateAll'));
+        }
+        if ($request->has('deleteOwn')) {
+            $query->where('deleteOwn', $request->input('deleteOwn'));
+        }
+        if ($request->has('deleteAll')) {
+            $query->where('deleteAll', $request->input('deleteAll'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -69,10 +87,10 @@ if ($request->has('deleteAll')) {$query->where('deleteAll', $request->input('del
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreatePermissionFieldRequest $request): JsonResponse 
+    public function store(CreatePermissionFieldRequest $request): JsonResponse
     {
         $data = PermissionField::create($request->validated());
         return response()->json(['message' => 'PermissionField created successfully', 'data' => $data]);
@@ -117,8 +135,8 @@ if ($request->has('deleteAll')) {$query->where('deleteAll', $request->input('del
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->PermissionFieldRepository->updatePermissionField( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->PermissionFieldRepository->updatePermissionField($id, (array) $newData);
         return response()->json(['message' => 'PermissionField updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -129,10 +147,10 @@ if ($request->has('deleteAll')) {$query->where('deleteAll', $request->input('del
         return response()->json(['message' => 'PermissionField deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE permissionFields")
         ]);
     }
-
 }

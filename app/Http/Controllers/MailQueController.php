@@ -12,25 +12,43 @@ class MailQueController extends Controller
 {
     private MailQueRepositoryInterface $MailQueRepository;
 
-    public function __construct(MailQueRepositoryInterface $userRepository) 
+    public function __construct(MailQueRepositoryInterface $userRepository)
     {
         $this->MailQueRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = MailQue::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('type')) {$query->where('type', $request->input('type'));}
-if ($request->has('data')) {$query->where('data', $request->input('data'));}
-if ($request->has('from')) {$query->where('from', $request->input('from'));}
-if ($request->has('recipients')) {$query->where('recipients', $request->input('recipients'));}
-if ($request->has('status')) {$query->where('status', $request->input('status'));}
-if ($request->has('errors')) {$query->where('errors', $request->input('errors'));}
-if ($request->has('templateId')) {$query->where('templateId', $request->input('templateId'));}
-if ($request->has('content')) {$query->where('content', $request->input('content'));}
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('type')) {
+            $query->where('type', $request->input('type'));
+        }
+        if ($request->has('data')) {
+            $query->where('data', $request->input('data'));
+        }
+        if ($request->has('from')) {
+            $query->where('from', $request->input('from'));
+        }
+        if ($request->has('recipients')) {
+            $query->where('recipients', $request->input('recipients'));
+        }
+        if ($request->has('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->has('errors')) {
+            $query->where('errors', $request->input('errors'));
+        }
+        if ($request->has('templateId')) {
+            $query->where('templateId', $request->input('templateId'));
+        }
+        if ($request->has('content')) {
+            $query->where('content', $request->input('content'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -69,10 +87,10 @@ if ($request->has('content')) {$query->where('content', $request->input('content
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateMailQueRequest $request): JsonResponse 
+    public function store(CreateMailQueRequest $request): JsonResponse
     {
         $data = MailQue::create($request->validated());
         return response()->json(['message' => 'MailQue created successfully', 'data' => $data]);
@@ -117,8 +135,8 @@ if ($request->has('content')) {$query->where('content', $request->input('content
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->MailQueRepository->updateMailQue( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->MailQueRepository->updateMailQue($id, (array) $newData);
         return response()->json(['message' => 'MailQue updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -129,10 +147,10 @@ if ($request->has('content')) {$query->where('content', $request->input('content
         return response()->json(['message' => 'MailQue deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE mailQues")
         ]);
     }
-
 }

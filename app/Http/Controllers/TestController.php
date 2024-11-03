@@ -12,21 +12,31 @@ class TestController extends Controller
 {
     private TestRepositoryInterface $TestRepository;
 
-    public function __construct(TestRepositoryInterface $userRepository) 
+    public function __construct(TestRepositoryInterface $userRepository)
     {
         $this->TestRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Test::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('stack')) {$query->where('stack', $request->input('stack'));}
-if ($request->has('service')) {$query->where('service', $request->input('service'));}
-if ($request->has('passed')) {$query->where('passed', $request->input('passed'));}
-if ($request->has('failed')) {$query->where('failed', $request->input('failed'));}
-if ($request->has('notes')) {$query->where('notes', $request->input('notes'));}
+        if ($request->has('stack')) {
+            $query->where('stack', $request->input('stack'));
+        }
+        if ($request->has('service')) {
+            $query->where('service', $request->input('service'));
+        }
+        if ($request->has('passed')) {
+            $query->where('passed', $request->input('passed'));
+        }
+        if ($request->has('failed')) {
+            $query->where('failed', $request->input('failed'));
+        }
+        if ($request->has('notes')) {
+            $query->where('notes', $request->input('notes'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -65,10 +75,10 @@ if ($request->has('notes')) {$query->where('notes', $request->input('notes'));}
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateTestRequest $request): JsonResponse 
+    public function store(CreateTestRequest $request): JsonResponse
     {
         $data = Test::create($request->validated());
         return response()->json(['message' => 'Test created successfully', 'data' => $data]);
@@ -113,8 +123,8 @@ if ($request->has('notes')) {$query->where('notes', $request->input('notes'));}
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->TestRepository->updateTest( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->TestRepository->updateTest($id, (array) $newData);
         return response()->json(['message' => 'Test updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -125,10 +135,10 @@ if ($request->has('notes')) {$query->where('notes', $request->input('notes'));}
         return response()->json(['message' => 'Test deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE tests")
         ]);
     }
-
 }

@@ -12,31 +12,61 @@ class ProfileController extends Controller
 {
     private ProfileRepositoryInterface $ProfileRepository;
 
-    public function __construct(ProfileRepositoryInterface $userRepository) 
+    public function __construct(ProfileRepositoryInterface $userRepository)
     {
         $this->ProfileRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Profile::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('userId')) {$query->where('userId', $request->input('userId'));}
-if ($request->has('image')) {$query->where('image', $request->input('image'));}
-if ($request->has('bio')) {$query->where('bio', $request->input('bio'));}
-if ($request->has('department')) {$query->where('department', $request->input('department'));}
-if ($request->has('hod')) {$query->where('hod', $request->input('hod'));}
-if ($request->has('section')) {$query->where('section', $request->input('section'));}
-if ($request->has('hos')) {$query->where('hos', $request->input('hos'));}
-if ($request->has('position')) {$query->where('position', $request->input('position'));}
-if ($request->has('manager')) {$query->where('manager', $request->input('manager'));}
-if ($request->has('company')) {$query->where('company', $request->input('company'));}
-if ($request->has('branch')) {$query->where('branch', $request->input('branch'));}
-if ($request->has('skills')) {$query->where('skills', $request->input('skills'));}
-if ($request->has('address')) {$query->where('address', $request->input('address'));}
-if ($request->has('phone')) {$query->where('phone', $request->input('phone'));}
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('userId')) {
+            $query->where('userId', $request->input('userId'));
+        }
+        if ($request->has('image')) {
+            $query->where('image', $request->input('image'));
+        }
+        if ($request->has('bio')) {
+            $query->where('bio', $request->input('bio'));
+        }
+        if ($request->has('department')) {
+            $query->where('department', $request->input('department'));
+        }
+        if ($request->has('hod')) {
+            $query->where('hod', $request->input('hod'));
+        }
+        if ($request->has('section')) {
+            $query->where('section', $request->input('section'));
+        }
+        if ($request->has('hos')) {
+            $query->where('hos', $request->input('hos'));
+        }
+        if ($request->has('position')) {
+            $query->where('position', $request->input('position'));
+        }
+        if ($request->has('manager')) {
+            $query->where('manager', $request->input('manager'));
+        }
+        if ($request->has('company')) {
+            $query->where('company', $request->input('company'));
+        }
+        if ($request->has('branch')) {
+            $query->where('branch', $request->input('branch'));
+        }
+        if ($request->has('skills')) {
+            $query->where('skills', $request->input('skills'));
+        }
+        if ($request->has('address')) {
+            $query->where('address', $request->input('address'));
+        }
+        if ($request->has('phone')) {
+            $query->where('phone', $request->input('phone'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -75,10 +105,10 @@ if ($request->has('phone')) {$query->where('phone', $request->input('phone'));}
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateProfileRequest $request): JsonResponse 
+    public function store(CreateProfileRequest $request): JsonResponse
     {
         $data = Profile::create($request->validated());
         return response()->json(['message' => 'Profile created successfully', 'data' => $data]);
@@ -123,8 +153,8 @@ if ($request->has('phone')) {$query->where('phone', $request->input('phone'));}
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->ProfileRepository->updateProfile( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->ProfileRepository->updateProfile($id, (array) $newData);
         return response()->json(['message' => 'Profile updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -135,10 +165,10 @@ if ($request->has('phone')) {$query->where('phone', $request->input('phone'));}
         return response()->json(['message' => 'Profile deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE profiles")
         ]);
     }
-
 }

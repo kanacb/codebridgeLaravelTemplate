@@ -12,33 +12,67 @@ class StaffinfoController extends Controller
 {
     private StaffinfoRepositoryInterface $StaffinfoRepository;
 
-    public function __construct(StaffinfoRepositoryInterface $userRepository) 
+    public function __construct(StaffinfoRepositoryInterface $userRepository)
     {
         $this->StaffinfoRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Staffinfo::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('empno')) {$query->where('empno', $request->input('empno'));}
-if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('namenric')) {$query->where('namenric', $request->input('namenric'));}
-if ($request->has('compcode')) {$query->where('compcode', $request->input('compcode'));}
-if ($request->has('compname')) {$query->where('compname', $request->input('compname'));}
-if ($request->has('deptcode')) {$query->where('deptcode', $request->input('deptcode'));}
-if ($request->has('deptdesc')) {$query->where('deptdesc', $request->input('deptdesc'));}
-if ($request->has('sectcode')) {$query->where('sectcode', $request->input('sectcode'));}
-if ($request->has('sectdesc')) {$query->where('sectdesc', $request->input('sectdesc'));}
-if ($request->has('designation')) {$query->where('designation', $request->input('designation'));}
-if ($request->has('email')) {$query->where('email', $request->input('email'));}
-if ($request->has('resign')) {$query->where('resign', $request->input('resign'));}
-if ($request->has('supervisor')) {$query->where('supervisor', $request->input('supervisor'));}
-if ($request->has('datejoin')) {$query->where('datejoin', $request->input('datejoin'));}
-if ($request->has('empgroup')) {$query->where('empgroup', $request->input('empgroup'));}
-if ($request->has('empgradecode')) {$query->where('empgradecode', $request->input('empgradecode'));}
-if ($request->has('terminationdate')) {$query->where('terminationdate', $request->input('terminationdate'));}
+        if ($request->has('empno')) {
+            $query->where('empno', $request->input('empno'));
+        }
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('namenric')) {
+            $query->where('namenric', $request->input('namenric'));
+        }
+        if ($request->has('compcode')) {
+            $query->where('compcode', $request->input('compcode'));
+        }
+        if ($request->has('compname')) {
+            $query->where('compname', $request->input('compname'));
+        }
+        if ($request->has('deptcode')) {
+            $query->where('deptcode', $request->input('deptcode'));
+        }
+        if ($request->has('deptdesc')) {
+            $query->where('deptdesc', $request->input('deptdesc'));
+        }
+        if ($request->has('sectcode')) {
+            $query->where('sectcode', $request->input('sectcode'));
+        }
+        if ($request->has('sectdesc')) {
+            $query->where('sectdesc', $request->input('sectdesc'));
+        }
+        if ($request->has('designation')) {
+            $query->where('designation', $request->input('designation'));
+        }
+        if ($request->has('email')) {
+            $query->where('email', $request->input('email'));
+        }
+        if ($request->has('resign')) {
+            $query->where('resign', $request->input('resign'));
+        }
+        if ($request->has('supervisor')) {
+            $query->where('supervisor', $request->input('supervisor'));
+        }
+        if ($request->has('datejoin')) {
+            $query->where('datejoin', $request->input('datejoin'));
+        }
+        if ($request->has('empgroup')) {
+            $query->where('empgroup', $request->input('empgroup'));
+        }
+        if ($request->has('empgradecode')) {
+            $query->where('empgradecode', $request->input('empgradecode'));
+        }
+        if ($request->has('terminationdate')) {
+            $query->where('terminationdate', $request->input('terminationdate'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -77,10 +111,10 @@ if ($request->has('terminationdate')) {$query->where('terminationdate', $request
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateStaffinfoRequest $request): JsonResponse 
+    public function store(CreateStaffinfoRequest $request): JsonResponse
     {
         $data = Staffinfo::create($request->validated());
         return response()->json(['message' => 'Staffinfo created successfully', 'data' => $data]);
@@ -125,8 +159,8 @@ if ($request->has('terminationdate')) {$query->where('terminationdate', $request
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->StaffinfoRepository->updateStaffinfo( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->StaffinfoRepository->updateStaffinfo($id, (array) $newData);
         return response()->json(['message' => 'Staffinfo updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -137,10 +171,10 @@ if ($request->has('terminationdate')) {$query->where('terminationdate', $request
         return response()->json(['message' => 'Staffinfo deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE staffinfo")
         ]);
     }
-
 }

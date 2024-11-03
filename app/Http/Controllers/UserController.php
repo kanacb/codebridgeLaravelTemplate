@@ -77,7 +77,7 @@ class UserController extends Controller
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
     public function store(CreateUserRequest $request): JsonResponse

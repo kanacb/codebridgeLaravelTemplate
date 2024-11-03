@@ -12,19 +12,25 @@ class MailController extends Controller
 {
     private MailRepositoryInterface $MailRepository;
 
-    public function __construct(MailRepositoryInterface $userRepository) 
+    public function __construct(MailRepositoryInterface $userRepository)
     {
         $this->MailRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Mail::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('status')) {$query->where('status', $request->input('status'));}
-if ($request->has('subject')) {$query->where('subject', $request->input('subject'));}
-if ($request->has('body')) {$query->where('body', $request->input('body'));}
+        if ($request->has('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->has('subject')) {
+            $query->where('subject', $request->input('subject'));
+        }
+        if ($request->has('body')) {
+            $query->where('body', $request->input('body'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -63,10 +69,10 @@ if ($request->has('body')) {$query->where('body', $request->input('body'));}
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateMailRequest $request): JsonResponse 
+    public function store(CreateMailRequest $request): JsonResponse
     {
         $data = Mail::create($request->validated());
         return response()->json(['message' => 'Mail created successfully', 'data' => $data]);
@@ -111,8 +117,8 @@ if ($request->has('body')) {$query->where('body', $request->input('body'));}
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->MailRepository->updateMail( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->MailRepository->updateMail($id, (array) $newData);
         return response()->json(['message' => 'Mail updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -123,10 +129,10 @@ if ($request->has('body')) {$query->where('body', $request->input('body'));}
         return response()->json(['message' => 'Mail deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE mails")
         ]);
     }
-
 }

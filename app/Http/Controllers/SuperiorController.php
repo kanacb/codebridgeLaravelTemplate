@@ -12,18 +12,22 @@ class SuperiorController extends Controller
 {
     private SuperiorRepositoryInterface $SuperiorRepository;
 
-    public function __construct(SuperiorRepositoryInterface $userRepository) 
+    public function __construct(SuperiorRepositoryInterface $userRepository)
     {
         $this->SuperiorRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Superior::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('superior')) {$query->where('superior', $request->input('superior'));}
-if ($request->has('subordinate')) {$query->where('subordinate', $request->input('subordinate'));}
+        if ($request->has('superior')) {
+            $query->where('superior', $request->input('superior'));
+        }
+        if ($request->has('subordinate')) {
+            $query->where('subordinate', $request->input('subordinate'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -62,10 +66,10 @@ if ($request->has('subordinate')) {$query->where('subordinate', $request->input(
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateSuperiorRequest $request): JsonResponse 
+    public function store(CreateSuperiorRequest $request): JsonResponse
     {
         $data = Superior::create($request->validated());
         return response()->json(['message' => 'Superior created successfully', 'data' => $data]);
@@ -110,8 +114,8 @@ if ($request->has('subordinate')) {$query->where('subordinate', $request->input(
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->SuperiorRepository->updateSuperior( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->SuperiorRepository->updateSuperior($id, (array) $newData);
         return response()->json(['message' => 'Superior updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -122,10 +126,10 @@ if ($request->has('subordinate')) {$query->where('subordinate', $request->input(
         return response()->json(['message' => 'Superior deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE superior")
         ]);
     }
-
 }

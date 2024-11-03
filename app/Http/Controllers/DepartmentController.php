@@ -12,20 +12,28 @@ class DepartmentController extends Controller
 {
     private DepartmentRepositoryInterface $DepartmentRepository;
 
-    public function __construct(DepartmentRepositoryInterface $userRepository) 
+    public function __construct(DepartmentRepositoryInterface $userRepository)
     {
         $this->DepartmentRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Department::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('companyId')) {$query->where('companyId', $request->input('companyId'));}
-if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('code')) {$query->where('code', $request->input('code'));}
-if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isDefault'));}
+        if ($request->has('companyId')) {
+            $query->where('companyId', $request->input('companyId'));
+        }
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('code')) {
+            $query->where('code', $request->input('code'));
+        }
+        if ($request->has('isDefault')) {
+            $query->where('isDefault', $request->input('isDefault'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -64,10 +72,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateDepartmentRequest $request): JsonResponse 
+    public function store(CreateDepartmentRequest $request): JsonResponse
     {
         $data = Department::create($request->validated());
         return response()->json(['message' => 'Department created successfully', 'data' => $data]);
@@ -112,8 +120,8 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->DepartmentRepository->updateDepartment( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->DepartmentRepository->updateDepartment($id, (array) $newData);
         return response()->json(['message' => 'Department updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -124,10 +132,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         return response()->json(['message' => 'Department deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE departments")
         ]);
     }
-
 }

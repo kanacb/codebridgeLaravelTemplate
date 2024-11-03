@@ -12,21 +12,31 @@ class PositionController extends Controller
 {
     private PositionRepositoryInterface $PositionRepository;
 
-    public function __construct(PositionRepositoryInterface $userRepository) 
+    public function __construct(PositionRepositoryInterface $userRepository)
     {
         $this->PositionRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Position::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('roleId')) {$query->where('roleId', $request->input('roleId'));}
-if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('description')) {$query->where('description', $request->input('description'));}
-if ($request->has('abbr')) {$query->where('abbr', $request->input('abbr'));}
-if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isDefault'));}
+        if ($request->has('roleId')) {
+            $query->where('roleId', $request->input('roleId'));
+        }
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('description')) {
+            $query->where('description', $request->input('description'));
+        }
+        if ($request->has('abbr')) {
+            $query->where('abbr', $request->input('abbr'));
+        }
+        if ($request->has('isDefault')) {
+            $query->where('isDefault', $request->input('isDefault'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -65,10 +75,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreatePositionRequest $request): JsonResponse 
+    public function store(CreatePositionRequest $request): JsonResponse
     {
         $data = Position::create($request->validated());
         return response()->json(['message' => 'Position created successfully', 'data' => $data]);
@@ -113,8 +123,8 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->PositionRepository->updatePosition( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->PositionRepository->updatePosition($id, (array) $newData);
         return response()->json(['message' => 'Position updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -125,10 +135,10 @@ if ($request->has('isDefault')) {$query->where('isDefault', $request->input('isD
         return response()->json(['message' => 'Position deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE positions")
         ]);
     }
-
 }

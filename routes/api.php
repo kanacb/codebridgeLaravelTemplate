@@ -93,8 +93,6 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get("companyPhonesSchema", [CompanyPhoneController::class, "getSchema"]);
     Route::resource("userPhones", UserPhoneController::class);
     Route::get("userPhonesSchema", [UserPhoneController::class, "getSchema"]);
-    Route::resource("userInvites", UserInviteController::class);
-    Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
     Route::resource("staffinfo", StaffinfoController::class);
     Route::get("staffinfoSchema", [StaffinfoController::class, "getSchema"]);
     Route::resource("dynaLoader", DynaLoaderController::class);

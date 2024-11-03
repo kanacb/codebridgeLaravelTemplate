@@ -12,19 +12,25 @@ class DynaLoaderController extends Controller
 {
     private DynaLoaderRepositoryInterface $DynaLoaderRepository;
 
-    public function __construct(DynaLoaderRepositoryInterface $userRepository) 
+    public function __construct(DynaLoaderRepositoryInterface $userRepository)
     {
         $this->DynaLoaderRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = DynaLoader::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('from')) {$query->where('from', $request->input('from'));}
-if ($request->has('to2')) {$query->where('to2', $request->input('to2'));}
-if ($request->has('name')) {$query->where('name', $request->input('name'));}
+        if ($request->has('from')) {
+            $query->where('from', $request->input('from'));
+        }
+        if ($request->has('to2')) {
+            $query->where('to2', $request->input('to2'));
+        }
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -63,10 +69,10 @@ if ($request->has('name')) {$query->where('name', $request->input('name'));}
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateDynaLoaderRequest $request): JsonResponse 
+    public function store(CreateDynaLoaderRequest $request): JsonResponse
     {
         $data = DynaLoader::create($request->validated());
         return response()->json(['message' => 'DynaLoader created successfully', 'data' => $data]);
@@ -111,8 +117,8 @@ if ($request->has('name')) {$query->where('name', $request->input('name'));}
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->DynaLoaderRepository->updateDynaLoader( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->DynaLoaderRepository->updateDynaLoader($id, (array) $newData);
         return response()->json(['message' => 'DynaLoader updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -123,10 +129,10 @@ if ($request->has('name')) {$query->where('name', $request->input('name'));}
         return response()->json(['message' => 'DynaLoader deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE dynaLoader")
         ]);
     }
-
 }

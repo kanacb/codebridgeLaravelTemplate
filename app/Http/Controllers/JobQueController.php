@@ -12,22 +12,34 @@ class JobQueController extends Controller
 {
     private JobQueRepositoryInterface $JobQueRepository;
 
-    public function __construct(JobQueRepositoryInterface $userRepository) 
+    public function __construct(JobQueRepositoryInterface $userRepository)
     {
         $this->JobQueRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = JobQue::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('type')) {$query->where('type', $request->input('type'));}
-if ($request->has('fromService')) {$query->where('fromService', $request->input('fromService'));}
-if ($request->has('toService')) {$query->where('toService', $request->input('toService'));}
-if ($request->has('start')) {$query->where('start', $request->input('start'));}
-if ($request->has('end')) {$query->where('end', $request->input('end'));}
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('type')) {
+            $query->where('type', $request->input('type'));
+        }
+        if ($request->has('fromService')) {
+            $query->where('fromService', $request->input('fromService'));
+        }
+        if ($request->has('toService')) {
+            $query->where('toService', $request->input('toService'));
+        }
+        if ($request->has('start')) {
+            $query->where('start', $request->input('start'));
+        }
+        if ($request->has('end')) {
+            $query->where('end', $request->input('end'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -66,10 +78,10 @@ if ($request->has('end')) {$query->where('end', $request->input('end'));}
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateJobQueRequest $request): JsonResponse 
+    public function store(CreateJobQueRequest $request): JsonResponse
     {
         $data = JobQue::create($request->validated());
         return response()->json(['message' => 'JobQue created successfully', 'data' => $data]);
@@ -114,8 +126,8 @@ if ($request->has('end')) {$query->where('end', $request->input('end'));}
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->JobQueRepository->updateJobQue( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->JobQueRepository->updateJobQue($id, (array) $newData);
         return response()->json(['message' => 'JobQue updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -126,10 +138,10 @@ if ($request->has('end')) {$query->where('end', $request->input('end'));}
         return response()->json(['message' => 'JobQue deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE jobQues")
         ]);
     }
-
 }

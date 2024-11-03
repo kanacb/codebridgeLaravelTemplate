@@ -12,29 +12,55 @@ class EmployeeController extends Controller
 {
     private EmployeeRepositoryInterface $EmployeeRepository;
 
-    public function __construct(EmployeeRepositoryInterface $userRepository) 
+    public function __construct(EmployeeRepositoryInterface $userRepository)
     {
         $this->EmployeeRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = Employee::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('empNo')) {$query->where('empNo', $request->input('empNo'));}
-if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('fullname')) {$query->where('fullname', $request->input('fullname'));}
-if ($request->has('company')) {$query->where('company', $request->input('company'));}
-if ($request->has('department')) {$query->where('department', $request->input('department'));}
-if ($request->has('section')) {$query->where('section', $request->input('section'));}
-if ($request->has('position')) {$query->where('position', $request->input('position'));}
-if ($request->has('supervisor')) {$query->where('supervisor', $request->input('supervisor'));}
-if ($request->has('dateJoined')) {$query->where('dateJoined', $request->input('dateJoined'));}
-if ($request->has('dateTerminated')) {$query->where('dateTerminated', $request->input('dateTerminated'));}
-if ($request->has('resigned')) {$query->where('resigned', $request->input('resigned'));}
-if ($request->has('empGroup')) {$query->where('empGroup', $request->input('empGroup'));}
-if ($request->has('empCode')) {$query->where('empCode', $request->input('empCode'));}
+        if ($request->has('empNo')) {
+            $query->where('empNo', $request->input('empNo'));
+        }
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('fullname')) {
+            $query->where('fullname', $request->input('fullname'));
+        }
+        if ($request->has('company')) {
+            $query->where('company', $request->input('company'));
+        }
+        if ($request->has('department')) {
+            $query->where('department', $request->input('department'));
+        }
+        if ($request->has('section')) {
+            $query->where('section', $request->input('section'));
+        }
+        if ($request->has('position')) {
+            $query->where('position', $request->input('position'));
+        }
+        if ($request->has('supervisor')) {
+            $query->where('supervisor', $request->input('supervisor'));
+        }
+        if ($request->has('dateJoined')) {
+            $query->where('dateJoined', $request->input('dateJoined'));
+        }
+        if ($request->has('dateTerminated')) {
+            $query->where('dateTerminated', $request->input('dateTerminated'));
+        }
+        if ($request->has('resigned')) {
+            $query->where('resigned', $request->input('resigned'));
+        }
+        if ($request->has('empGroup')) {
+            $query->where('empGroup', $request->input('empGroup'));
+        }
+        if ($request->has('empCode')) {
+            $query->where('empCode', $request->input('empCode'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -73,10 +99,10 @@ if ($request->has('empCode')) {$query->where('empCode', $request->input('empCode
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateEmployeeRequest $request): JsonResponse 
+    public function store(CreateEmployeeRequest $request): JsonResponse
     {
         $data = Employee::create($request->validated());
         return response()->json(['message' => 'Employee created successfully', 'data' => $data]);
@@ -121,8 +147,8 @@ if ($request->has('empCode')) {$query->where('empCode', $request->input('empCode
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->EmployeeRepository->updateEmployee( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->EmployeeRepository->updateEmployee($id, (array) $newData);
         return response()->json(['message' => 'Employee updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -133,10 +159,10 @@ if ($request->has('empCode')) {$query->where('empCode', $request->input('empCode
         return response()->json(['message' => 'Employee deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE employees")
         ]);
     }
-
 }

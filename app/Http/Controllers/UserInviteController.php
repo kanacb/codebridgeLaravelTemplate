@@ -12,20 +12,28 @@ class UserInviteController extends Controller
 {
     private UserInviteRepositoryInterface $UserInviteRepository;
 
-    public function __construct(UserInviteRepositoryInterface $userRepository) 
+    public function __construct(UserInviteRepositoryInterface $userRepository)
     {
         $this->UserInviteRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = UserInvite::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('emailToInvite')) {$query->where('emailToInvite', $request->input('emailToInvite'));}
-if ($request->has('status')) {$query->where('status', $request->input('status'));}
-if ($request->has('code')) {$query->where('code', $request->input('code'));}
-if ($request->has('sendMailCounter')) {$query->where('sendMailCounter', $request->input('sendMailCounter'));}
+        if ($request->has('emailToInvite')) {
+            $query->where('emailToInvite', $request->input('emailToInvite'));
+        }
+        if ($request->has('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->has('code')) {
+            $query->where('code', $request->input('code'));
+        }
+        if ($request->has('sendMailCounter')) {
+            $query->where('sendMailCounter', $request->input('sendMailCounter'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -64,10 +72,10 @@ if ($request->has('sendMailCounter')) {$query->where('sendMailCounter', $request
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json($results);
     }
 
-    public function store(CreateUserInviteRequest $request): JsonResponse 
+    public function store(CreateUserInviteRequest $request): JsonResponse
     {
         $data = UserInvite::create($request->validated());
         return response()->json(['message' => 'UserInvite created successfully', 'data' => $data]);
@@ -112,8 +120,8 @@ if ($request->has('sendMailCounter')) {$query->where('sendMailCounter', $request
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->UserInviteRepository->updateUserInvite( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->UserInviteRepository->updateUserInvite($id, (array) $newData);
         return response()->json(['message' => 'UserInvite updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -124,10 +132,10 @@ if ($request->has('sendMailCounter')) {$query->where('sendMailCounter', $request
         return response()->json(['message' => 'UserInvite deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE userInvites")
         ]);
     }
-
 }
