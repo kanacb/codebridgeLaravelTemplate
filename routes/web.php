@@ -17,4 +17,4 @@ use App\Http\Controllers\AuthController;
 Route::get('reauthentication', [AuthController::class, 'reauthentication']);
 Route::any('{any}', function () {
     return redirect(env('FRONTEND_URL',"http://localhost:3000"));
-})->where('any', '.*');
+})->where('any', '.*')->named("frontend");

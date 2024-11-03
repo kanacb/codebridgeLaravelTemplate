@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CacheController;
+use App\Http\Controllers\MailQueController;
+use App\Http\Controllers\UserInviteController;
 
 
 // ~cb-controller-paths~ 
@@ -20,13 +22,12 @@ use App\Http\Controllers\CacheController;
 |
 */
 
-Route::get('authentication', [AuthController::class, 'login'])->name('login');
+Route::post('authentication', [AuthController::class, 'login'])->name('login');
 Route::post('users', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 Route::resource('mailQues', MailQueController::class);
 Route::resource("userInvites", UserInviteController::class);
-Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
-Route::get("users", [UserController::class, 'index']);
+Route::resource("users",UserController::class);
 
 Route::post('/cache/{key}', [CacheController::class, 'set']);
 Route::get('/cache/{key}', [CacheController::class, 'get']);
@@ -36,9 +37,7 @@ Route::get('/cache/{key}', [CacheController::class, 'exists']);
 Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
-    Route::get("users", [UserController::class, 'index']);
     Route::post('change_password', [AuthController::class, 'change'])->name('change');
-
     // ~cb-routes-paths~
 });
 
