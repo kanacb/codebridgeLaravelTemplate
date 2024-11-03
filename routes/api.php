@@ -6,29 +6,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CacheController;
 
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PositionController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TemplateController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\PermissionServiceController;
-use App\Http\Controllers\PermissionFieldController;
-use App\Http\Controllers\UserAddressController;
-use App\Http\Controllers\CompanyAddressController;
-use App\Http\Controllers\CompanyPhoneController;
-use App\Http\Controllers\UserPhoneController;
-use App\Http\Controllers\UserInviteController;
-use App\Http\Controllers\StaffinfoController;
-use App\Http\Controllers\DynaLoaderController;
-use App\Http\Controllers\DynaFieldController;
-use App\Http\Controllers\JobQueController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\MailQueController;
-use App\Http\Controllers\SuperiorController;
 
 // ~cb-controller-paths~ 
 
