@@ -105,7 +105,6 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get("jobQuesSchema", [JobQueController::class, "getSchema"]);
     Route::resource("employees", EmployeeController::class);
     Route::get("employeesSchema", [EmployeeController::class, "getSchema"]);
-    Route::resource("mailQues", MailQueController::class);
     Route::get("mailQuesSchema", [MailQueController::class, "getSchema"]);
     Route::resource("superior", SuperiorController::class);
     Route::get("superiorSchema", [SuperiorController::class, "getSchema"]);
