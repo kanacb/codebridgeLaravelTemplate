@@ -24,13 +24,29 @@ class CreateMailQueRequest extends FormRequest
         return [
             'name' => 'required|string',
             'type' => 'required|string',
-            'data' => 'bail|required|string',
+            'data' => 'bail|required|json',
             'from' => 'required|string',
-            'recipients' => 'bail|required|string',
+            'recipients' => 'bail|required|json',
             'status' => 'boolean',
             'errors' => 'string',
             'templateId' => 'required|string',
             'content' => 'string'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // Convert data_field to JSON if it is an array
+        if (is_array($this->data) || is_object($this->data)) {
+            $this->merge([
+                'data' => json_encode($this->data),
+            ]);
+        }
+
+        if (is_array($this->recipients)) {
+            $this->merge([
+                'recipients' => json_encode($this->recipients)
+            ]);
+        }
     }
 }

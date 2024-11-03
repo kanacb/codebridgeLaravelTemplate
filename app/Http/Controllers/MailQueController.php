@@ -13,25 +13,43 @@ class MailQueController extends Controller
 {
     private MailQueRepositoryInterface $MailQueRepository;
 
-    public function __construct(MailQueRepositoryInterface $userRepository) 
+    public function __construct(MailQueRepositoryInterface $userRepository)
     {
         $this->MailQueRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = MailQue::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('name')) {$query->where('name', $request->input('name'));}
-if ($request->has('type')) {$query->where('type', $request->input('type'));}
-if ($request->has('data')) {$query->where('data', $request->input('data'));}
-if ($request->has('from')) {$query->where('from', $request->input('from'));}
-if ($request->has('recipients')) {$query->where('recipients', $request->input('recipients'));}
-if ($request->has('status')) {$query->where('status', $request->input('status'));}
-if ($request->has('errors')) {$query->where('errors', $request->input('errors'));}
-if ($request->has('templateId')) {$query->where('templateId', $request->input('templateId'));}
-if ($request->has('content')) {$query->where('content', $request->input('content'));}
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('type')) {
+            $query->where('type', $request->input('type'));
+        }
+        if ($request->has('data')) {
+            $query->where('data', $request->input('data'));
+        }
+        if ($request->has('from')) {
+            $query->where('from', $request->input('from'));
+        }
+        if ($request->has('recipients')) {
+            $query->where('recipients', $request->input('recipients'));
+        }
+        if ($request->has('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->has('errors')) {
+            $query->where('errors', $request->input('errors'));
+        }
+        if ($request->has('templateId')) {
+            $query->where('templateId', $request->input('templateId'));
+        }
+        if ($request->has('content')) {
+            $query->where('content', $request->input('content'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -73,7 +91,7 @@ if ($request->has('content')) {$query->where('content', $request->input('content
         return response()->json(["data" => $results]);
     }
 
-    public function store(CreateMailQueRequest $request): JsonResponse 
+    public function store(CreateMailQueRequest $request): JsonResponse
     {
         if (is_array($request->input('recipients'))) {
             $request->merge([
@@ -115,21 +133,14 @@ if ($request->has('content')) {$query->where('content', $request->input('content
             $query->with($relationships);
         }
 
-        $data = MailQue::with([
-            'createdBy' => function ($query) {
-                $query->select('id', 'name'); // Assumes 'id' is needed for relationship linking
-            },
-            'updatedBy' => function ($query) {
-                $query->select('id', 'name');
-            }
-        ])->findOrFail($id)->$query->get();
+        $data = MailQue::findOrFail($id)->$query->get();
         return response()->json($data);
     }
 
     public function update(Request $request, $id): JsonResponse
     {
-        $newData = $request->except(["created_at","updated_at"]);
-        $data = $this->MailQueRepository->updateMailQue( $id, (array) $newData);
+        $newData = $request->except(["created_at", "updated_at"]);
+        $data = $this->MailQueRepository->updateMailQue($id, (array) $newData);
         return response()->json(['message' => 'MailQue updated successfully', 'data' => $data, "id" => $id, 'newData' => $newData]);
     }
 
@@ -140,10 +151,10 @@ if ($request->has('content')) {$query->where('content', $request->input('content
         return response()->json(['message' => 'MailQue deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE mailQues")
         ]);
     }
-
 }

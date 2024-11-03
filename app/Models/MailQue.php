@@ -19,25 +19,14 @@ class MailQue extends Model
      */
     protected $fillable = [
         'name',
-'type',
-'data',
-'from',
-'recipients',
-'status',
-'templateId',
-'content'
+        'type',
+        'data',
+        'from',
+        'recipients',
+        'status',
+        'templateId',
+        'content'
     ];
-
-    
-    public function createdBy()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function updatedBy()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,13 +38,11 @@ class MailQue extends Model
     ];
 
     public $timestamps = true;
-    
+
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        
-    ];
+    protected $casts = [];
 }

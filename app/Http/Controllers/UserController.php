@@ -80,6 +80,12 @@ class UserController extends Controller
         return response()->json(["data" => $results]);
     }
 
+    public function show(Request $request, $id): JsonResponse
+    {
+        $data = User::findOrFail($id)->get();
+        return response()->json($data);
+    }
+
     public function store(CreateUserRequest $request): JsonResponse
     {
         $data = User::create($request->validated());
