@@ -23,18 +23,18 @@ class CreateStaffinfoRequest extends FormRequest
     {
         return [
             'name' => 'string',
-'namenric' => 'string',
-'compname' => 'string',
-'deptcode' => 'string',
-'deptdesc' => 'string',
-'sectdesc' => 'string',
-'designation' => 'string',
-'email' => 'string',
-'resign' => 'string',
-'supervisor' => 'string',
-'empgroup' => 'string',
-'empgradecode' => 'string',
-'terminationdate' => 'string'
+            'namenric' => 'string',
+            'compname' => 'string',
+            'deptcode' => 'string',
+            'deptdesc' => 'string',
+            'sectdesc' => 'string',
+            'designation' => 'string',
+            'email' => 'string',
+            'resign' => 'string',
+            'supervisor' => 'string',
+            'empgroup' => 'string',
+            'empgradecode' => 'string',
+            'terminationdate' => 'string'
         ];
     }
 }

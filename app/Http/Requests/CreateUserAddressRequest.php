@@ -23,12 +23,12 @@ class CreateUserAddressRequest extends FormRequest
     {
         return [
             'Street1' => 'string',
-'Street2' => 'string',
-'Poscode' => 'string',
-'City' => 'string',
-'State' => 'string',
-'Province' => 'string',
-'Country' => 'string'
+            'Street2' => 'string',
+            'Poscode' => 'string',
+            'City' => 'string',
+            'State' => 'string',
+            'Province' => 'string',
+            'Country' => 'string'
         ];
     }
 }

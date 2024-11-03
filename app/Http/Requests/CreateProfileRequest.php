@@ -23,9 +23,9 @@ class CreateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-'image' => 'required|string',
-'bio' => 'string',
-'skills' => 'string'
+            'image' => 'required|string',
+            'bio' => 'string',
+            'skills' => 'string'
         ];
     }
 }

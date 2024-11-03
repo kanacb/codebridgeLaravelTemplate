@@ -23,7 +23,7 @@ class CreateRoleRequest extends FormRequest
     {
         return [
             'name' => 'string',
-'description' => 'string'
+            'description' => 'string'
         ];
     }
 }

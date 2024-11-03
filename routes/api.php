@@ -47,7 +47,7 @@ Route::get('authentication', [AuthController::class, 'login'])->name('login');
 Route::post('users', [AuthController::class, 'store'])->name('register');
 Route::post('reauthentication', [AuthController::class, 'reauth'])->name('reauth');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
-Route::post('mailQues', [MailQueController::class, 'store'])->name('sendmail');
+Route::get('mailQues', [MailQueController::class, 'store'])->name('sendmail');
 Route::resource("userInvites", UserInviteController::class);
 Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
 Route::get("users", [UserController::class, 'index']);

@@ -18,14 +18,14 @@ return new class extends Migration
             Schema::create('mailQues', function (Blueprint $table) {
                 $table->id();
                 $table->string('name')->nullable();
-$table->string('type')->nullable();
-$table->string('data')->nullable();
-$table->string('from')->nullable();
-$table->string('recipients')->nullable();
-$table->string('status');
-$table->string('errors');
-$table->string('templateId')->nullable();
-$table->string('content');
+                $table->string('type')->nullable();
+                $table->jsonb('data');
+                $table->string('from')->nullable();
+                $table->jsonb('recipients');
+                $table->string('status')->nullable();
+                $table->jsonb('errors')->nullable();
+                $table->string('templateId')->nullable();
+                $table->string('content')->nullable();
                 $table->timestamps();
             });
         }

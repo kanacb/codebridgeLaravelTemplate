@@ -23,8 +23,8 @@ class CreateTestRequest extends FormRequest
     {
         return [
             'stack' => 'string',
-'service' => 'string',
-'notes' => 'string'
+            'service' => 'string',
+            'notes' => 'string'
         ];
     }
 }

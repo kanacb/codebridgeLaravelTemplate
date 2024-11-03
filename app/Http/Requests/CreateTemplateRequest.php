@@ -23,9 +23,9 @@ class CreateTemplateRequest extends FormRequest
     {
         return [
             'name' => 'string',
-'subject' => 'string',
-'body' => 'string',
-'image' => 'string'
+            'subject' => 'string',
+            'body' => 'string',
+            'image' => 'string'
         ];
     }
 }

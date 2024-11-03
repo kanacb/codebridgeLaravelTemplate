@@ -22,7 +22,9 @@ class CreateUserInviteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'emailToInvite' => 'required|string'
+            'emailToInvite' => 'required|string',
+            'code' => 'required|integer',
+            'sendMailCounter' => 'integer'
         ];
     }
 }

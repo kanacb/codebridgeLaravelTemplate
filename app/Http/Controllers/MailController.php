@@ -69,7 +69,7 @@ class MailController extends Controller
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json($results);
+        return response()->json(["data" => $results]);
     }
 
     public function store(CreateMailRequest $request): JsonResponse

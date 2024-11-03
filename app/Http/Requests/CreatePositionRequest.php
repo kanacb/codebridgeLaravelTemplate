@@ -23,8 +23,8 @@ class CreatePositionRequest extends FormRequest
     {
         return [
             'name' => 'string',
-'description' => 'string',
-'abbr' => 'string'
+            'description' => 'string',
+            'abbr' => 'string'
         ];
     }
 }
