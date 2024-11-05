@@ -40,6 +40,7 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\DocumentStorageController;
 use App\Http\Controllers\DepartmentHODController;
 use App\Http\Controllers\DepartmentHOController;
+use App\Http\Controllers\S3Controller;
 // ~cb-controller-paths~ 
 
 /*
@@ -64,6 +65,10 @@ Route::post('/cache/{key}', [CacheController::class, 'set']);
 Route::get('/cache/{key}', [CacheController::class, 'get']);
 Route::delete('/cache/{key}', [CacheController::class, 'delete']);
 Route::get('/cache/{key}', [CacheController::class, 'exists']);
+
+Route::post('s3uploader', [S3Controller::class, 'upload']);
+Route::get('s3uploader/{fileName}', [S3Controller::class, 'get']);
+Route::delete('s3uploader/{fileName}', [S3Controller::class, 'delete']);
 
 Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
