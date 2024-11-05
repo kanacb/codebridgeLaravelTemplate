@@ -55,7 +55,7 @@ use App\Http\Controllers\S3Controller;
 */
 
 Route::post('authentication', [AuthController::class, 'login'])->name('login');
-Route::post('users', [AuthController::class, 'store'])->name('register');
+Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 Route::resource('mailQues', MailQueController::class);
 Route::resource("userInvites", UserInviteController::class);
