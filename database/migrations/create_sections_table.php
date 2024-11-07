@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,14 +14,19 @@ return new class extends Migration
     {
         if (Schema::hasTable('sections')) {
             dd("service");
-        } else {
+        }
+        else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             Schema::create('sections', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
-                $table->string('code');
-                $table->boolean('isDefault')->nullable();
+                $table->unsignedBigInteger('departmentId');
+$table->foreign('departmentId')->references('departments')->on('name');
+$table->string('name');
+$table->string('code');
+$table->boolean('isDefault')->nullable();
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 

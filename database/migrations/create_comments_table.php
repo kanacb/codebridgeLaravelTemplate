@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,14 +14,17 @@ return new class extends Migration
     {
         if (Schema::hasTable('comments')) {
             dd("service");
-        } else {
+        }
+        else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             Schema::create('comments', function (Blueprint $table) {
                 $table->id();
-                $table->string('text')->nullable();
-                $table->string('recordId')->nullable();
-                $table->boolean('resolved')->nullable();
+                $table->string('text');
+$table->string('recordId');
+$table->boolean('resolved')->nullable();
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 

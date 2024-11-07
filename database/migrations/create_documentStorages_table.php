@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,20 +12,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('documentStorage')) {
+        if (Schema::hasTable('document_storages')) {
             dd("service");
-        } else {
-            Schema::create('documentStorage', function (Blueprint $table) {
+        }
+        else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Schema::create('document_storages', function (Blueprint $table) {
                 $table->id();
-                $table->string('name')->nullable();
-                $table->integer('size')->nullable();
-                $table->text('path');
-                $table->string('eTag')->nullable();
-                $table->text('url');
-                $table->string('tableId')->nullable();
-                $table->string('tableName')->nullable();
+                $table->string('name');
+$table->integer('size')->nullable();
+$table->text('path');
+$table->date('lastModifiedDate')->nullable();
+$table->date('lastModified')->nullable();
+$table->string('eTag');
+$table->text('url');
+$table->string('tableId');
+$table->string('tableName');
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 
@@ -33,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documentStorage');
+        Schema::dropIfExists('documentStorages');
     }
 };

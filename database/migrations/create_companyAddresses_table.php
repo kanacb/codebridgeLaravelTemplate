@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,21 +12,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('companyAddresses')) {
+        if (Schema::hasTable('company_addresses')) {
             dd("service");
-        } else {
-            Schema::create('companyAddresses', function (Blueprint $table) {
+        }
+        else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Schema::create('company_addresses', function (Blueprint $table) {
                 $table->id();
-                $table->text('Street1')->nullable();
-                $table->text('Street2')->nullable();
-                $table->string('Poscode');
-                $table->string('City');
-                $table->string('State');
-                $table->string('Province');
-                $table->string('Country');
-                $table->boolean('isDefault')->nullable();
+                $table->unsignedBigInteger('companyId');
+$table->foreign('companyId')->references('companies')->on('name');
+$table->text('Street1')->nullable();
+$table->text('Street2')->nullable();
+$table->string('Poscode');
+$table->string('City');
+$table->string('State');
+$table->string('Province');
+$table->string('Country');
+$table->boolean('isDefault')->nullable();
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,17 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('jobQues')) {
+        if (Schema::hasTable('job_ques')) {
             dd("service");
-        } else {
-            Schema::create('jobQues', function (Blueprint $table) {
+        }
+        else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Schema::create('job_ques', function (Blueprint $table) {
                 $table->id();
-                $table->string('name')->nullable();
-                $table->string('type')->nullable();
-                $table->string('fromService')->nullable();
-                $table->string('toService')->nullable();
+                $table->string('name');
+$table->string('type');
+$table->string('fromService');
+$table->string('toService');
+$table->date('start')->nullable();
+$table->date('end')->nullable();
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 

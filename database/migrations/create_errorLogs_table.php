@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,18 +12,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('errorLogs')) {
+        if (Schema::hasTable('error_logs')) {
             dd("service");
-        } else {
-            Schema::create('errorLogs', function (Blueprint $table) {
+        }
+        else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Schema::create('error_logs', function (Blueprint $table) {
                 $table->id();
-                $table->string('serviceName')->nullable();
-                $table->string('errorMessage')->nullable();
-                $table->string('message')->nullable();
-                $table->string('stack')->nullable();
-                $table->string('details')->nullable();
+                $table->string('serviceName');
+$table->string('errorMessage');
+$table->string('message');
+$table->string('stack');
+$table->string('details');
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 
