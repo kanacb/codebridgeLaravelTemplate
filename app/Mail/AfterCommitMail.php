@@ -10,6 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class AfterCommitMail extends Mailable implements ShouldQueue
 {
@@ -40,16 +41,16 @@ class AfterCommitMail extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        $html = DB::table("tempalates")->select("body", "image")->where("name", "=", $this->data->templateId)->get();
+        $html = DB::table("templates")->select("body", "image")->where("name", "=", $this->data->templateId)->get();
+        $content = json_decode($html);
         $data = json_decode($this->data->data);
-        if (is_array($data)) {
+        if (is_object($data)) {
             foreach ($data as $k => $v) {
-                $html = Str::replace("{{$k}}", $v, $html);
+                $content[0]->body = Str::replace("{{{$k}}}", $v, $content[0]->body);
             }
         }
-
         return new Content(
-            htmlString: $html
+            htmlString: $content[0]->body
         );
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use App\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -77,19 +78,19 @@ class UserController extends Controller
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => $results]);
+        return response()->json(["data" => UserResource::collection($results)]);
     }
 
     public function show(Request $request, $id): JsonResponse
     {
         $data = User::findOrFail($id)->get();
-        return response()->json($data);
+        return response()->json(new UserResource($data));
     }
 
     public function store(CreateUserRequest $request): JsonResponse
     {
         $data = User::create($request->validated());
-        return response()->json(['message' => 'User created successfully', 'data' => $data]);
+        return response()->json(new UserResource($data));
     }
 
     public function getSchema(): JsonResponse

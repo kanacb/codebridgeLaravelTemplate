@@ -7,40 +7,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CacheController;
 use App\Http\Controllers\MailQueController;
 use App\Http\Controllers\UserInviteController;
-
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PositionController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TemplateController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\PermissionServiceController;
-use App\Http\Controllers\PermissionFieldController;
-use App\Http\Controllers\UserAddressController;
-use App\Http\Controllers\CompanyAddressController;
-use App\Http\Controllers\CompanyPhoneController;
-use App\Http\Controllers\UserPhoneController;
-use App\Http\Controllers\StaffinfoController;
-use App\Http\Controllers\DynaLoaderController;
-use App\Http\Controllers\DynaFieldController;
-use App\Http\Controllers\JobQueController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\SuperiorController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ErrorLogController;
-use App\Http\Controllers\InboxController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\UserGuideStepController;
-use App\Http\Controllers\UserGuideController;
-use App\Http\Controllers\UserLoginController;
-use App\Http\Controllers\DocumentStorageController;
-use App\Http\Controllers\DepartmentHODController;
-use App\Http\Controllers\DepartmentHOController;
 use App\Http\Controllers\S3Controller;
+
+
 // ~cb-controller-paths~ 
 
 /*
@@ -55,6 +24,7 @@ use App\Http\Controllers\S3Controller;
 */
 
 Route::post('authentication', [AuthController::class, 'login'])->name('login');
+Route::delete('authentication', [AuthController::class, 'logout'])->name('login');
 Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 Route::resource('mailQues', MailQueController::class);

@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Mail\AfterCommitMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -32,10 +31,10 @@ class SendAfterCommitMailQueJob implements ShouldQueue
     public function handle(): void
     {
         $recipients = json_decode($this->emailData['recipients']);
-        Log::emergency($recipients);
         if (is_array($recipients))
             foreach ($recipients as $to) {
-                Mail::to("kana@cloudbasha.com")->send(new AfterCommitMail($this->emailData));
+                Mail::to($to)->send(new AfterCommitMail($this->emailData));
             }
+        else  Mail::to($this->emailData['recipients'])->send(new AfterCommitMail($this->emailData));
     }
 }
