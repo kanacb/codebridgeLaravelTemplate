@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
+use App\Interfaces\UserInviteRepositoryInterface;
+use App\Repositories\UserInviteRepository;
+use App\Interfaces\MailQueRepositoryInterface;
+use App\Repositories\MailQueRepository;
 
 // ~cb-import-service-repositories~
 
@@ -18,6 +22,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(UserInviteRepositoryInterface::class, UserInviteRepository::class);
+        $this->app->bind(MailQueRepositoryInterface::class, MailQueRepository::class);
         // ~cb-service-provider~
     }
 
