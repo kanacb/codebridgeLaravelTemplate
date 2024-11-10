@@ -3,48 +3,72 @@
     "name": "onDynaLoader",
     "subject": "Data Loader Completed",
     "body": "The Job Id : {{id}}",
-    "image" : ""
+    "image": "companyLogo.png"
   },
   {
     "name": "onUserConfirmation",
     "subject": "Data Loader Completed",
     "body": "The Job Id : {{id}}",
-    "image" : ""
+    "image": "companyLogo.png"
   },
   {
     "name": "onWelcomeEmail",
-    "subject": "Data Loader Completed",
+    "subject": "Welcome - Your account is ready",
     "body": "<p>Hi {{name}},</p><p><br></p><p><br></p> <p>Welcome to {{projectLabel}} </p>",
-    "image" : ""
+    "image": "companyLogo.png"
   },
   {
     "name": "onCodeVerify",
     "subject": "Email Verification Code",
     "body": "<p>Hi {{name}},</p><p><br></p><p><br></p><p>Your email verification is required.</p><p><br></p><p><br></p><p><strong>The Verification Code : {{code}}</strong></p><p><br></p><p><strong><span class=\"ql-cursor\">﻿</span></strong></p><p><br></p><p>This is an automated email.</p>",
-    "image" : ""
+    "image": "companyLogo.png"
   },
   {
     "name": "onError",
     "subject": "Error Captured",
     "body": "The Job Id : {{id}}",
-    "image" : ""
+    "image": "companyLogo.png"
   },
   {
     "name": "onChangeForgotPassword",
     "subject": "Reset Password Link",
-    "body": "<p>Hi {{name}},</p><p><br></p><p><br></p><p>Password Reset for : {{email}}</p><p><br></p><p><br></p><p>&lt;p&gt;&lt;a href=\"{{clientUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\"&gt; Reset Link &lt;/a&gt;&lt;/p&gt;</p><p><br></p><p><br></p><p><br></p><p>Please follow the link to change your password.</p><p><br></p><p><br></p><p>This is an automated email.</p><p><br></p>",
-    "image" : ""
+    "body": "<p>Hi {{name}},</p><p><br></p><p><br></p><p>Password Reset for : {{email}}</p><p><br></p><p><br></p><p><p><a href=\"{{clientUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\"> Reset Link </a></p></p><p><br></p><p><br></p><p><br></p><p>Please follow the link to change your password.</p><p><br></p><p><br></p><p>This is an automated email.</p><p><br></p>",
+    "image": "companyLogo.png"
   },
   {
     "name": "onChangeForgotPasswordFailed",
     "subject": "Failed to send failed password reset link",
     "body": "The Job Id : {{id}}",
-    "image" : ""
+    "image": "companyLogo.png"
   },
   {
     "name": "onFailedRecordNotification",
     "subject": "Failed Records Notification",
     "body": "<p>Hi {{recipientName}},</p><p><br></p><p>Your file upload contained some failed records.</p><p><br></p><p>Here are the details of the failed records:</p><p><br></p><p><strong style=\"color: rgb(230, 0, 0);\">{{failedRecordDetails}}</strong></p><p><br></p><p><br></p><p>The detailed list of failed records is attached as an Excel file.</p><p><br></p><p>This is an automated email.</p>",
-    "image" : ""
+    "image": "companyLogo.png"
+  },
+  {
+    "name": "onUserCreatedSuccess",
+    "subject": "User Created - Successfully",
+    "body": "<p><br></p><h2 class=\"ql-align-center\"><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);\">Welcome to {{projectLabel}}</span></h2><p class=\"ql-align-center\">Hello, <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{name}}</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">We are pleased to inform you that your account has been successfully created in our system. Welcome to {{projectLabel}}!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">As part of our commitment to security, our platform is built on a Zero Trust security model, ensuring that all interactions are authenticated, verified, and continuously monitored to keep your data safe.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Please note that this is an automated message from <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{projectLabel}}'s </span>app, intended solely as a notification. You do not need to respond to this email.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">If you have any questions or need further assistance, feel free to contact our support team at support@codebridgeapp.com.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Thank you for choosing CodeBridgeApp. We look forward to supporting your journey with us!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Regards,</p><p class=\"ql-align-center\">The CodeBridge Ai App Team</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">This is a system notification from Project CodeBridgeApp implementing Zero Trust security.</p><p class=\"ql-align-center\">&copy; 2024 Code Bridge Sdn. Bhd. All rights reserved.</p>",
+    "image": "companyLogo.png"
+  },
+  {
+    "name": "onUserCreatedFailed",
+    "subject": "User Creation - Failed",
+    "body": "<p><br></p><h2 class=\"ql-align-center\"><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);\">Notification from {{projectLabel}}</span></h2><p class=\"ql-align-center\">Hello, <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{name}}</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">We are informing you that your account has been failed to create in our system. Notification from {{projectLabel}}!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">This could be an attempt to login your account with out your approval. Please take action if this was not created without your knowledge.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">As part of our commitment to security, our platform is built on a Zero Trust security model, ensuring that all interactions are authenticated, verified, and continuously monitored to keep your data safe.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Please note that this is an automated message from <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{projectLabel}}'s </span>app, intended solely as a notification. You do not need to respond to this email.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">If you have any questions or need further assistance, feel free to contact our support team at support@codebridgeapp.com.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Thank you for choosing CodeBridgeApp. We look forward to supporting your journey with us!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Regards,</p><p class=\"ql-align-center\">The CodeBridge Ai App Team</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">This is a system notification from Project CodeBridgeApp implementing Zero Trust security.</p><p class=\"ql-align-center\">&copy; 2024 Code Bridge Sdn. Bhd. All rights reserved.</p>",
+    "image": "companyLogo.png"
+  },
+  {
+    "name": "onUserLoginSuccess",
+    "subject": "User Logged In - Successfully",
+    "body": "<p><br></p><h2 class=\"ql-align-center\"><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);\">Welcome to {{projectLabel}}</span></h2><p class=\"ql-align-center\">Hello, <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{name}}</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">We are pleased to inform you that your have successfully logged into your system. Welcome to {{projectLabel}}!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">As part of our commitment to security, our platform is built on a Zero Trust security model, ensuring that all interactions are authenticated, verified, and continuously monitored to keep your data safe.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Please note that this is an automated message from <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{projectLabel}}'s </span>app, intended solely as a notification. You do not need to respond to this email.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">If you have any questions or need further assistance, feel free to contact our support team at support@codebridgeapp.com.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Thank you for choosing CodeBridgeApp. We look forward to supporting your journey with us!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Regards,</p><p class=\"ql-align-center\">The CodeBridge Ai App Team</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">This is a system notification from Project CodeBridgeApp implementing Zero Trust security.</p><p class=\"ql-align-center\">&copy; 2024 Code Bridge Sdn. Bhd. All rights reserved.</p>",
+    "image": "companyLogo.png"
+  },
+  {
+    "name": "onUserLoginFailed",
+    "subject": "User Login - Failed",
+    "body": "<p><br></p><h2 class=\"ql-align-center\"><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);\">Notifications from {{projectLabel}}</span></h2><p class=\"ql-align-center\">Hello, <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{name}}</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">We are informing you that your account login has failed in our system. Notifications from {{projectLabel}}!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">This could be an attempt to access your account without your permissions. Please take the necessary action if this is the case. Please contact your administrator with the information below.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">As part of our commitment to security, our platform is built on a Zero Trust security model, ensuring that all interactions are authenticated, verified, and continuously monitored to keep your data safe.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Please note that this is an automated message from <span style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);\">{{projectLabel}}'s </span>app, intended solely as a notification. You do not need to respond to this email.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">If you have any questions or need further assistance, feel free to contact our support team at support@codebridgeapp.com.</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Thank you for choosing CodeBridgeApp. We look forward to supporting your journey with us!</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">Regards,</p><p class=\"ql-align-center\">The CodeBridge Ai App Team</p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\">This is a system notification from Project CodeBridgeApp implementing Zero Trust security.</p><p class=\"ql-align-center\">&copy; 2024 Code Bridge Sdn. Bhd. All rights reserved.</p>",
+    "image": "companyLogo.png"
   }
 ]

@@ -22,6 +22,7 @@ return new class extends Migration
                 $table->string('from')->nullable();
                 $table->string('recipients')->nullable();
                 $table->string('status');
+                $table->string('subject');
                 $table->string('errors')->nullable();
                 $table->string('templateId')->nullable();
                 $table->string('content')->nullable();

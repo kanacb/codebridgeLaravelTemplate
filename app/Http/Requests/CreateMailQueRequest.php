@@ -28,6 +28,7 @@ class CreateMailQueRequest extends FormRequest
             'from' => 'required|string',
             'recipients' => 'bail|required|json',
             'status' => 'boolean',
+            'subject' => 'required|string',
             'errors' => 'string',
             'templateId' => 'required|string',
             'content' => 'string'
