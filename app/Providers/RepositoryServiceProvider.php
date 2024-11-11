@@ -25,8 +25,8 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserInviteRepositoryInterface::class, UserInviteRepository::class);
-        $this->app->bind(MailQueRepositoryInterface::class, MailQueRepository::class);
 
+        
         // ~cb-service-provider~
     }
 
