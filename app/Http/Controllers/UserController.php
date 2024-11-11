@@ -10,7 +10,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Resources\UserResource;
 
-class UserController extends Controller
+class UserController extends Controller 
 {
     private UserRepositoryInterface $UserRepository;
 
