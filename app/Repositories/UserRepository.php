@@ -33,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
     public function updateUser($userId, array $newDetails) 
     {
         $users = User::whereId($userId)->update($newDetails);
-        return UserResource::collection($users);
+        return new UserResource($users);
     }
 
     public function getFulfilledUsers() 

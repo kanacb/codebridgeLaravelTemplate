@@ -8,7 +8,8 @@ use App\Http\Controllers\CacheController;
 use App\Http\Controllers\MailQueController;
 use App\Http\Controllers\UserInviteController;
 use App\Http\Controllers\S3Controller;
-
+use App\Http\Controllers\InboxController;
+use App\Http\Controllers\NotificationController;
 
 // ~cb-controller-paths~ 
 
@@ -44,8 +45,9 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
     Route::post('change_password', [AuthController::class, 'change'])->name('change');
-    
+
     // ~cb-routes-paths~
+
 });
 
 

@@ -9,7 +9,10 @@ use App\Interfaces\UserInviteRepositoryInterface;
 use App\Repositories\UserInviteRepository;
 use App\Interfaces\MailQueRepositoryInterface;
 use App\Repositories\MailQueRepository;
-
+use App\Interfaces\MailQueRepositoryInterface;
+use App\Repositories\MailQueRepository;
+use App\Interfaces\MailQueRepositoryInterface;
+use App\Repositories\MailQueRepository;
 // ~cb-import-service-repositories~
 
 // ~cb-import-service-interfaces~
