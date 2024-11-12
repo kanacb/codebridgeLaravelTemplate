@@ -61,9 +61,6 @@ Route::post('authentication', [AuthController::class, 'login'])->name('login');
 Route::delete('authentication', [AuthController::class, 'logout'])->name('login');
 Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
-Route::resource('mailQues', MailQueController::class);
-Route::resource("userInvites", UserInviteController::class);
-Route::resource("users", UserController::class);
 
 Route::post('/cache/{key}', [CacheController::class, 'set']);
 Route::get('/cache/{key}', [CacheController::class, 'get']);
@@ -76,8 +73,12 @@ Route::delete('s3uploader/{fileName}', [S3Controller::class, 'delete']);
 
 Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
+    Route::resource("users", UserController::class);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
-    Route::post('change_password', [AuthController::class, 'change'])->name('change');
+    Route::resource("mailQues", MailQueController::class);
+    Route::get("mailQuesSchema", [MailQueController::class, "getSchema"]);
+    Route::resource("userInvites", UserInviteController::class);
+    Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
 
     // ~cb-routes-paths~
 
@@ -113,8 +114,6 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get("companyPhonesSchema", [CompanyPhoneController::class, "getSchema"]);
     Route::resource("userPhones", UserPhoneController::class);
     Route::get("userPhonesSchema", [UserPhoneController::class, "getSchema"]);
-    Route::resource("userInvites", UserInviteController::class);
-    Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
     Route::resource("staffinfo", StaffinfoController::class);
     Route::get("staffinfoSchema", [StaffinfoController::class, "getSchema"]);
     Route::resource("dynaLoader", DynaLoaderController::class);
@@ -125,8 +124,7 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get("jobQuesSchema", [JobQueController::class, "getSchema"]);
     Route::resource("employees", EmployeeController::class);
     Route::get("employeesSchema", [EmployeeController::class, "getSchema"]);
-    Route::resource("mailQues", MailQueController::class);
-    Route::get("mailQuesSchema", [MailQueController::class, "getSchema"]);
+
     Route::resource("superior", SuperiorController::class);
     Route::get("superiorSchema", [SuperiorController::class, "getSchema"]);
     Route::resource("comments", CommentController::class);

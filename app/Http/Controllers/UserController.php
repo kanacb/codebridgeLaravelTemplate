@@ -17,6 +17,9 @@ class UserController extends Controller
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->UserRepository = $userRepository;
+        $this->middleware('guest')->except([
+            'store'
+        ]);
     }
 
     public function index(Request $request): JsonResponse

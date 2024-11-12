@@ -17,6 +17,9 @@ class MailQueController extends Controller
     public function __construct(MailQueRepositoryInterface $userRepository)
     {
         $this->MailQueRepository = $userRepository;
+        $this->middleware('guest')->except([
+            'store'
+        ]);
     }
 
     public function index(Request $request): JsonResponse

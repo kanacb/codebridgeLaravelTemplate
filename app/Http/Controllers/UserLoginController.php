@@ -18,6 +18,9 @@ class UserLoginController extends Controller
     public function __construct(UserLoginRepositoryInterface $userRepository)
     {
         $this->UserLoginRepository = $userRepository;
+        $this->middleware('guest')->except([
+            'store'
+        ]);
     }
 
     public function index(Request $request): JsonResponse
