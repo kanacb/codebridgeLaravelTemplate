@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['store', 'login','reauthenticate']);
+        $this->middleware('auth:sanctum')->except(['store', 'login', 'reauthenticate']);
     }
 
     public function store(Request $request)
@@ -37,6 +37,7 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token =  $request->user()->createToken('LaravelSanctumAuth')->plainTextToken;
+                $user["_id"] = $user->id;
                 return response()->json([
                     "user" => $user,
                     "accessToken" => $token
@@ -52,6 +53,7 @@ class AuthController extends Controller
     public function reauthenticate(Request $request)
     {
         $user = $request->user();
+        $user["_id"] = $user->id;
 
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
@@ -64,6 +66,7 @@ class AuthController extends Controller
     {
         Auth::logout();
         $user = Auth::user();
+        $user["_id"] = $user->id;
         return response()->json([
             "user" => $user,
             "logout" => true
