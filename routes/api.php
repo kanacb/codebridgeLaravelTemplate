@@ -58,7 +58,7 @@ use App\Http\Controllers\DepartmentHOController;
 */
 
 Route::post('authentication', [AuthController::class, 'login'])->name('login');
-Route::delete('authentication', [AuthController::class, 'logout'])->name('login');
+Route::delete('authentication', [AuthController::class, 'logout'])->name('logout');
 Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 Route::resource("users", UserController::class);

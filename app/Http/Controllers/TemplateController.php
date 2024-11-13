@@ -18,6 +18,7 @@ class TemplateController extends Controller
     public function __construct(TemplateRepositoryInterface $userRepository)
     {
         $this->TemplateRepository = $userRepository;
+        $this->middleware('auth:sanctum')->except(['index']);
     }
 
     public function index(Request $request): JsonResponse

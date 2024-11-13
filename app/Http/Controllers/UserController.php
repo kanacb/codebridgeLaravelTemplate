@@ -10,16 +10,14 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Resources\UserResource;
 
-class UserController extends Controller 
+class UserController extends Controller
 {
     private UserRepositoryInterface $UserRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->UserRepository = $userRepository;
-        $this->middleware('guest')->except([
-            'store'
-        ]);
+        $this->middleware('auth:sanctum')->except(['store']);
     }
 
     public function index(Request $request): JsonResponse

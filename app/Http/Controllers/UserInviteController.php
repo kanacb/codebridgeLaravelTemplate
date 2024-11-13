@@ -16,9 +16,7 @@ class UserInviteController extends Controller
     public function __construct(UserInviteRepositoryInterface $userRepository)
     {
         $this->UserInviteRepository = $userRepository;
-        $this->middleware('guest')->except([
-            'store','index'
-        ]);
+        $this->middleware('auth:sanctum')->except(['store','index']);
     }
 
     public function index(Request $request): JsonResponse

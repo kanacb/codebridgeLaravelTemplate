@@ -12,10 +12,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except([
-            'logout',
-            'user_dash'
-        ]);
+        $this->middleware('auth:sanctum')->except(['store', 'login','reauthenticate']);
     }
 
     public function store(Request $request)
