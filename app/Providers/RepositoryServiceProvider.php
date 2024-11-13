@@ -10,9 +10,9 @@ use App\Repositories\UserInviteRepository;
 use App\Interfaces\MailQueRepositoryInterface;
 use App\Repositories\MailQueRepository;
 
+// ~cb-import-service-repositories~
 
 // ~cb-import-service-interfaces~
-// ~cb-import-service-repositories~
 
 use App\Repositories\CompanyRepository;
 use App\Repositories\BranchRepository;
@@ -46,7 +46,9 @@ use App\Repositories\UserLoginRepository;
 use App\Repositories\DocumentStorageRepository;
 use App\Repositories\DepartmentHODRepository;
 use App\Repositories\DepartmentHORepository;
+use App\Repositories\LoginHistoryRepository;
 
+use App\Interfaces\LoginHistoryRepositoryInterface;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\BranchRepositoryInterface;
 use App\Interfaces\DepartmentRepositoryInterface;
@@ -93,7 +95,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserInviteRepositoryInterface::class, UserInviteRepository::class);
 
         // ~cb-service-provider~
-
+        $this->app->bind(LoginHistoryRepositoryInterface::class, LoginHistoryRepository::class);
         $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
         $this->app->bind(BranchRepositoryInterface::class, BranchRepository::class);
         $this->app->bind(DepartmentRepositoryInterface::class, DepartmentRepository::class);

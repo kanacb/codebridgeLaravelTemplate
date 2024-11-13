@@ -44,7 +44,7 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\DocumentStorageController;
 use App\Http\Controllers\DepartmentHODController;
 use App\Http\Controllers\DepartmentHOController;
-
+use App\Http\Controllers\LoginHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +109,8 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::resource("userAddresses", UserAddressController::class);
     Route::get("userAddressesSchema", [UserAddressController::class, "getSchema"]);
     Route::resource("companyAddresses", CompanyAddressController::class);
+    Route::resource("loginHistory", LoginHistoryController::class);
+    Route::get("loginHistorySchema", [LoginHistoryController::class, "getSchema"]);
     Route::get("companyAddressesSchema", [CompanyAddressController::class, "getSchema"]);
     Route::resource("companyPhones", CompanyPhoneController::class);
     Route::get("companyPhonesSchema", [CompanyPhoneController::class, "getSchema"]);
