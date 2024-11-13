@@ -61,6 +61,7 @@ Route::post('authentication', [AuthController::class, 'login'])->name('login');
 Route::delete('authentication', [AuthController::class, 'logout'])->name('login');
 Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
+Route::resource("users", UserController::class);
 
 Route::post('/cache/{key}', [CacheController::class, 'set']);
 Route::get('/cache/{key}', [CacheController::class, 'get']);
@@ -73,7 +74,6 @@ Route::delete('s3uploader/{fileName}', [S3Controller::class, 'delete']);
 
 Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
-    Route::resource("users", UserController::class);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
     Route::resource("mailQues", MailQueController::class);
     Route::get("mailQuesSchema", [MailQueController::class, "getSchema"]);
