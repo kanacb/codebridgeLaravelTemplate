@@ -50,6 +50,9 @@ class UserController extends Controller
         // Handle sorting
         if ($request->has('$sort')) {
             foreach ($request->input('$sort') as $field => $order) {
+                if ($field === "createdAt") $field = "created_at";
+                if ($field === "updatedAt") $field = "updated_at";
+                if ($field === "_id") $field = "id";
                 $query->orderBy($field, $order == 1 ? 'asc' : 'desc');
             }
         }
