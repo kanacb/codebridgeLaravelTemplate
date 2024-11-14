@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['store', 'login', 'reauthenticate']);
+        $this->middleware('auth:sanctum')->except(['store', 'login', 'reauthenticate','register','forgot']);
     }
 
     public function store(Request $request)
@@ -30,10 +30,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            // if($request->all() == []) return $this->reauthenticate($request);
+
             $credentials = $request->validate([
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
+            
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token =  $request->user()->createToken('LaravelSanctumAuth')->plainTextToken;

@@ -127,7 +127,7 @@ class UserGuideStepController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->UserGuideStepRepository->updateUserGuideStep($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new UserGuideStepResource($data));
     }
 
     public function destroy($id)

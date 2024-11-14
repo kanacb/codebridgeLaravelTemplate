@@ -9,6 +9,7 @@ use App\Http\Controllers\MailQueController;
 use App\Http\Controllers\UserInviteController;
 use App\Http\Controllers\S3Controller;
 
+use App\Http\Controllers\LoginHistoryController;
 // ~cb-controller-paths~ 
 
 
@@ -44,7 +45,7 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\DocumentStorageController;
 use App\Http\Controllers\DepartmentHODController;
 use App\Http\Controllers\DepartmentHOController;
-use App\Http\Controllers\LoginHistoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +59,13 @@ use App\Http\Controllers\LoginHistoryController;
 */
 
 Route::post('authentication', [AuthController::class, 'login'])->name('login');
+Route::get('reauthenticate', [AuthController::class, 'reauthenticate'])->name('reAuthenticate');
 Route::delete('authentication', [AuthController::class, 'logout'])->name('logout');
 Route::post('register', [AuthController::class, 'store'])->name('register');
 Route::post('forgot', [AuthController::class, 'forgot'])->name('forgot');
 Route::resource("users", UserController::class);
+Route::resource("mailQues", MailQueController::class);
+Route::resource("userInvites", UserInviteController::class);
 
 Route::post('/cache/{key}', [CacheController::class, 'set']);
 Route::get('/cache/{key}', [CacheController::class, 'get']);
@@ -75,9 +79,7 @@ Route::delete('s3uploader/{fileName}', [S3Controller::class, 'delete']);
 Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get('usersfullfilled', [UserController::class, 'index']);
     Route::get("usersSchema", [UserController::class, "getSchema"]);
-    Route::resource("mailQues", MailQueController::class);
     Route::get("mailQuesSchema", [MailQueController::class, "getSchema"]);
-    Route::resource("userInvites", UserInviteController::class);
     Route::get("userInvitesSchema", [UserInviteController::class, "getSchema"]);
 
     // ~cb-routes-paths~
@@ -109,8 +111,6 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::resource("userAddresses", UserAddressController::class);
     Route::get("userAddressesSchema", [UserAddressController::class, "getSchema"]);
     Route::resource("companyAddresses", CompanyAddressController::class);
-    Route::resource("loginHistory", LoginHistoryController::class);
-    Route::get("loginHistorySchema", [LoginHistoryController::class, "getSchema"]);
     Route::get("companyAddressesSchema", [CompanyAddressController::class, "getSchema"]);
     Route::resource("companyPhones", CompanyPhoneController::class);
     Route::get("companyPhonesSchema", [CompanyPhoneController::class, "getSchema"]);
@@ -126,7 +126,8 @@ Route::middleware('auth:sanctum', 'active_user')->group(function () {
     Route::get("jobQuesSchema", [JobQueController::class, "getSchema"]);
     Route::resource("employees", EmployeeController::class);
     Route::get("employeesSchema", [EmployeeController::class, "getSchema"]);
-
+    Route::resource("loginHistory", LoginHistoryController::class);
+    Route::get("loginHistorySchema", [LoginHistoryController::class, "getSchema"]);
     Route::resource("superior", SuperiorController::class);
     Route::get("superiorSchema", [SuperiorController::class, "getSchema"]);
     Route::resource("comments", CommentController::class);

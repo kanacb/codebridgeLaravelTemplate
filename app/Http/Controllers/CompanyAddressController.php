@@ -93,7 +93,7 @@ class CompanyAddressController extends Controller
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => CompanyAddressResource::collection($results)]);
+        return response()->json(["data" =>  CompanyAddressResource::collection($results)]);
     }
 
     public function store(CreateCompanyAddressRequest $request): JsonResponse
@@ -145,7 +145,7 @@ class CompanyAddressController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->CompanyAddressRepository->updateCompanyAddress($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new CompanyAddressResource($data));
     }
 
     public function destroy($id)

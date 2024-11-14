@@ -133,7 +133,7 @@ class PositionController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->PositionRepository->updatePosition($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new PositionResource($data));
     }
 
     public function destroy($id)

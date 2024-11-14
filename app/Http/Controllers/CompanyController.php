@@ -81,7 +81,7 @@ class CompanyController extends Controller
         $results = $query->get();
 
         // Return as a JSON resource (optional)
-        return response()->json(["data" => CompanyResource::collection($results)]);
+        return response()->json(["data" =>  CompanyResource::collection($results)]);
     }
 
     public function store(CreateCompanyRequest $request): JsonResponse
@@ -133,7 +133,7 @@ class CompanyController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->CompanyRepository->updateCompany($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new CompanyResource($data));
     }
 
     public function destroy($id)

@@ -10,7 +10,7 @@ class MailQue extends Model
 {
     use HasApiTokens, HasFactory;
 
-    protected $table = "mailQues";
+    protected $table = "mail_ques";
     /**
      * The attributes that are mass assignable.
      *

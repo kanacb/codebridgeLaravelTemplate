@@ -130,7 +130,7 @@ class SectionController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->SectionRepository->updateSection($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new SectionResource($data));
     }
 
     public function destroy($id)

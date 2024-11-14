@@ -145,7 +145,7 @@ class PermissionFieldController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->PermissionFieldRepository->updatePermissionField($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new PermissionFieldResource($data));
     }
 
     public function destroy($id)

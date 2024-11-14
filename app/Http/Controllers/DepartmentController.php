@@ -130,7 +130,7 @@ class DepartmentController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->DepartmentRepository->updateDepartment($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new DepartmentResource($data));
     }
 
     public function destroy($id)

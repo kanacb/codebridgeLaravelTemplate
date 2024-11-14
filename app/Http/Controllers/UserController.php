@@ -17,7 +17,7 @@ class UserController extends Controller
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->UserRepository = $userRepository;
-        $this->middleware('auth:sanctum')->except(['store']);
+        $this->middleware('auth:sanctum')->except(['store', 'index']);
     }
 
     public function index(Request $request): JsonResponse
@@ -92,6 +92,21 @@ class UserController extends Controller
     {
         $data = User::create($request->validated());
         return response()->json(new UserResource($data));
+    }
+
+
+    public function update(CreateUserRequest $request, $id): JsonResponse
+    {
+        $newData = $request->except(["id", "created_at"]);
+        $data = $this->UserRepository->updateUser($id, (array) $newData);
+        return response()->json(new UserResource($data));
+    }
+
+    public function destroy($id)
+    {
+        $post = User::find($id);
+        $post->delete();
+        return response()->json(['message' => 'User deleted successfully']);
     }
 
     public function getSchema(): JsonResponse

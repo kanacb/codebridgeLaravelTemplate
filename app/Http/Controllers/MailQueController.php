@@ -9,6 +9,7 @@ use App\Interfaces\MailQueRepositoryInterface;
 use App\Http\Requests\CreateMailQueRequest;
 use App\Http\Resources\MailQueResource;
 use App\Jobs\SendAfterCommitMailQueJob;
+use Illuminate\Support\Facades\Log;
 
 class MailQueController extends Controller
 {
@@ -30,9 +31,6 @@ class MailQueController extends Controller
         }
         if ($request->has('type')) {
             $query->where('type', $request->input('type'));
-        }
-        if ($request->has('data')) {
-            $query->where('data', $request->input('data'));
         }
         if ($request->has('from')) {
             $query->where('from', $request->input('from'));
@@ -95,6 +93,7 @@ class MailQueController extends Controller
 
     public function store(CreateMailQueRequest $request): JsonResponse
     {
+        Log::info("created");
         if (is_array($request->input('recipients'))) {
             $request->merge([
                 'recipients' => json_encode($request->input('recipients'))

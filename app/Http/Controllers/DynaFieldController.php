@@ -154,7 +154,8 @@ class DynaFieldController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->DynaFieldRepository->updateDynaField($id, (array) $newData);
-        return response()->json($data);
+        $data["_id"] = $data->id;
+        return response()->json(new DynaFieldResource($data));
     }
 
     public function destroy($id)

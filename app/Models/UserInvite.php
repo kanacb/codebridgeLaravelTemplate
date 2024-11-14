@@ -10,7 +10,7 @@ class UserInvite extends Model
 {
     use HasApiTokens, HasFactory;
 
-    protected $table = "userInvites";
+    protected $table = "user_invites";
     /**
      * The attributes that are mass assignable.
      *

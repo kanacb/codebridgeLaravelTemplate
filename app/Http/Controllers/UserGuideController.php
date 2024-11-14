@@ -124,7 +124,7 @@ class UserGuideController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->UserGuideRepository->updateUserGuide($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new UserGuideResource($data));
     }
 
     public function destroy($id)

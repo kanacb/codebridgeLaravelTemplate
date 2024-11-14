@@ -121,7 +121,7 @@ class DepartmentHODController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->DepartmentHODRepository->updateDepartmentHOD($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new DepartmentHODResource($data));
     }
 
     public function destroy($id)

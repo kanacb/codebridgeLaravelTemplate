@@ -15,18 +15,22 @@ class LoginHistoryController extends Controller
 {
     private LoginHistoryRepositoryInterface $LoginHistoryRepository;
 
-    public function __construct(LoginHistoryRepositoryInterface $userRepository) 
+    public function __construct(LoginHistoryRepositoryInterface $userRepository)
     {
         $this->LoginHistoryRepository = $userRepository;
     }
 
-    public function index(Request $request): JsonResponse 
+    public function index(Request $request): JsonResponse
     {
         $query = LoginHistory::query();
 
         // Handle specific FeathersJS query parameters
-        if ($request->has('userId')) {$query->where('userId', $request->input('userId'));}
-if ($request->has('loginTime')) {$query->where('loginTime', $request->input('loginTime'));}
+        if ($request->has('userId')) {
+            $query->where('userId', $request->input('userId'));
+        }
+        if ($request->has('loginTime')) {
+            $query->where('loginTime', $request->input('loginTime'));
+        }
 
         // Handle pagination
         $limit = $request->input('$limit', 10);  // Default to 10 items
@@ -37,9 +41,9 @@ if ($request->has('loginTime')) {$query->where('loginTime', $request->input('log
         // Handle sorting
         if ($request->has('$sort')) {
             foreach ($request->input('$sort') as $field => $order) {
-                if($field === "createdAt") $field = "created_at";
-                if($field === "updatedAt") $field = "updated_at";
-                if($field === "_id") $field = "id";
+                if ($field === "createdAt") $field = "created_at";
+                if ($field === "updatedAt") $field = "updated_at";
+                if ($field === "_id") $field = "id";
                 $query->orderBy($field, $order == 1 ? 'asc' : 'desc');
             }
         }
@@ -71,7 +75,7 @@ if ($request->has('loginTime')) {$query->where('loginTime', $request->input('log
         return response()->json(["data" => LoginHistoryResource::collection($results)]);
     }
 
-    public function store(CreateLoginHistoryRequest $request): JsonResponse 
+    public function store(CreateLoginHistoryRequest $request): JsonResponse
     {
         $request->merge(['created_by' => Auth::id(), 'updated_by' => Auth::id()]);
         $data = LoginHistory::create($request->all());
@@ -118,9 +122,9 @@ if ($request->has('loginTime')) {$query->where('loginTime', $request->input('log
     public function update(CreateLoginHistoryRequest $request, $id): JsonResponse
     {
         $request->merge(['updated_by' => Auth::id()]);
-        $newData = $request->except(["id","created_at"]);
-        $data = $this->LoginHistoryRepository->updateLoginHistory( $id, (array) $newData);
-        return response()->json($data);
+        $newData = $request->except(["id", "created_at"]);
+        $data = $this->LoginHistoryRepository->updateLoginHistory($id, (array) $newData);
+        return response()->json(new LoginHistoryResource($data));
     }
 
     public function destroy($id)
@@ -130,10 +134,10 @@ if ($request->has('loginTime')) {$query->where('loginTime', $request->input('log
         return response()->json(['message' => 'LoginHistory deleted successfully']);
     }
 
-    public function getSchema() : JsonResponse{
+    public function getSchema(): JsonResponse
+    {
         return response()->json([
             \Illuminate\Support\Facades\DB::select("DESCRIBE login_history")
         ]);
     }
-
 }

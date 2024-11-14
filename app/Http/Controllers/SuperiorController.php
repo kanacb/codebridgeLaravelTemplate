@@ -124,7 +124,7 @@ class SuperiorController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->SuperiorRepository->updateSuperior($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new SuperiorResource($data));
     }
 
     public function destroy($id)

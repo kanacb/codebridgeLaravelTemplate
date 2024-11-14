@@ -142,7 +142,7 @@ class PermissionServiceController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->PermissionServiceRepository->updatePermissionService($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new PermissionServiceResource($data));
     }
 
     public function destroy($id)

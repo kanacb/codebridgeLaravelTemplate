@@ -127,7 +127,7 @@ class RoleController extends Controller
         $request->merge(['updated_by' => Auth::id()]);
         $newData = $request->except(["id", "created_at"]);
         $data = $this->RoleRepository->updateRole($id, (array) $newData);
-        return response()->json($data);
+        return response()->json(new RoleResource($data));
     }
 
     public function destroy($id)
