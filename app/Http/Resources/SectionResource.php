@@ -28,15 +28,16 @@ class SectionResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'departmentId' => $this->departmentId,
-            'name' => $this->name,
-            'code' => $this->code,
-            'isDefault' => $this->isDefault,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'departmentId' => $this->departmentId,
+                'name' => $this->name,
+                'code' => $this->code,
+                'isDefault' => $this->isDefault,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

@@ -27,14 +27,15 @@ class UserGuideStepResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'userGuideID' => $this->userGuideID,
-            'steps' => $this->steps,
-            'description' => $this->description,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'userGuideID' => $this->userGuideID,
+                'steps' => $this->steps,
+                'description' => $this->description,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

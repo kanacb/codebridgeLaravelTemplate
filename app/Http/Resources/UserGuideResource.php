@@ -26,13 +26,14 @@ class UserGuideResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'serviceName' => $this->serviceName,
-            'expiry' => $this->expiry,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'serviceName' => $this->serviceName,
+                'expiry' => $this->expiry,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

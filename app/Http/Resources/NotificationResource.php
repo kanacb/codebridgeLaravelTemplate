@@ -28,15 +28,16 @@ class NotificationResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'toUser' => $this->toUser,
-            'content' => $this->content,
-            'read' => $this->read,
-            'sent' => $this->sent,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'toUser' => $this->toUser,
+                'content' => $this->content,
+                'read' => $this->read,
+                'sent' => $this->sent,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

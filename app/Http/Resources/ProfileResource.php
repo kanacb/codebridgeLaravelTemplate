@@ -39,26 +39,27 @@ class ProfileResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'name' => $this->name,
-            'userId' => $this->userId,
-            'image' => $this->image,
-            'bio' => $this->bio,
-            'department' => $this->department,
-            'hod' => $this->hod,
-            'section' => $this->section,
-            'hos' => $this->hos,
-            'position' => $this->position,
-            'manager' => $this->manager,
-            'company' => $this->company,
-            'branch' => $this->branch,
-            'skills' => $this->skills,
-            'address' => $this->address,
-            'phone' => $this->phone,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'name' => $this->name,
+                'userId' => $this->userId,
+                'image' => $this->image,
+                'bio' => $this->bio,
+                'department' => $this->department,
+                'hod' => $this->hod,
+                'section' => $this->section,
+                'hos' => $this->hos,
+                'position' => $this->position,
+                'manager' => $this->manager,
+                'company' => $this->company,
+                'branch' => $this->branch,
+                'skills' => $this->skills,
+                'address' => $this->address,
+                'phone' => $this->phone,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

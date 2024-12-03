@@ -27,14 +27,15 @@ class MailResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'status' => $this->status,
-            'subject' => $this->subject,
-            'body' => $this->body,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'status' => $this->status,
+                'subject' => $this->subject,
+                'body' => $this->body,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

@@ -33,20 +33,21 @@ class CompanyAddressResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'companyId' => $this->companyId,
-            'Street1' => $this->Street1,
-            'Street2' => $this->Street2,
-            'Poscode' => $this->Poscode,
-            'City' => $this->City,
-            'State' => $this->State,
-            'Province' => $this->Province,
-            'Country' => $this->Country,
-            'isDefault' => $this->isDefault,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'companyId' => $this->companyId,
+                'Street1' => $this->Street1,
+                'Street2' => $this->Street2,
+                'Poscode' => $this->Poscode,
+                'City' => $this->City,
+                'State' => $this->State,
+                'Province' => $this->Province,
+                'Country' => $this->Country,
+                'isDefault' => $this->isDefault,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

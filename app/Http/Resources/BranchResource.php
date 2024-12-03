@@ -27,14 +27,15 @@ class BranchResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'companyId' => $this->companyId,
-            'name' => $this->name,
-            'isDefault' => $this->isDefault,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'companyId' => $this->companyId,
+                'name' => $this->name,
+                'isDefault' => $this->isDefault,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

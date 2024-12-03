@@ -27,14 +27,15 @@ class DynaLoaderResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'from' => $this->from,
-            'to2' => $this->to2,
-            'name' => $this->name,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'from' => $this->from,
+                'to2' => $this->to2,
+                'name' => $this->name,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

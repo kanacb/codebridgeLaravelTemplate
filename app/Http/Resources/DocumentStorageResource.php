@@ -33,20 +33,21 @@ class DocumentStorageResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'name' => $this->name,
-            'size' => $this->size,
-            'path' => $this->path,
-            'lastModifiedDate' => $this->lastModifiedDate,
-            'lastModified' => $this->lastModified,
-            'eTag' => $this->eTag,
-            'url' => $this->url,
-            'tableId' => $this->tableId,
-            'tableName' => $this->tableName,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'name' => $this->name,
+                'size' => $this->size,
+                'path' => $this->path,
+                'lastModifiedDate' => $this->lastModifiedDate,
+                'lastModified' => $this->lastModified,
+                'eTag' => $this->eTag,
+                'url' => $this->url,
+                'tableId' => $this->tableId,
+                'tableName' => $this->tableName,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

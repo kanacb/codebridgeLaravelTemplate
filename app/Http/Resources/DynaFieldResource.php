@@ -36,23 +36,24 @@ class DynaFieldResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'dynaLoader' => $this->dynaLoader,
-            'from' => $this->from,
-            'fromType' => $this->fromType,
-            'to2' => $this->to2,
-            'toType' => $this->toType,
-            'fromRefService' => $this->fromRefService,
-            'toRefService' => $this->toRefService,
-            'fromIdentityFieldName' => $this->fromIdentityFieldName,
-            'toIdentityFieldName' => $this->toIdentityFieldName,
-            'fromRelationship' => $this->fromRelationship,
-            'toRelationship' => $this->toRelationship,
-            'duplicates' => $this->duplicates,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'dynaLoader' => $this->dynaLoader,
+                'from' => $this->from,
+                'fromType' => $this->fromType,
+                'to2' => $this->to2,
+                'toType' => $this->toType,
+                'fromRefService' => $this->fromRefService,
+                'toRefService' => $this->toRefService,
+                'fromIdentityFieldName' => $this->fromIdentityFieldName,
+                'toIdentityFieldName' => $this->toIdentityFieldName,
+                'fromRelationship' => $this->fromRelationship,
+                'toRelationship' => $this->toRelationship,
+                'duplicates' => $this->duplicates,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

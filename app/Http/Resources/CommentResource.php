@@ -27,14 +27,15 @@ class CommentResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'text' => $this->text,
-            'recordId' => $this->recordId,
-            'resolved' => $this->resolved,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'text' => $this->text,
+                'recordId' => $this->recordId,
+                'resolved' => $this->resolved,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

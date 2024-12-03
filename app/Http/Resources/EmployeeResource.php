@@ -37,24 +37,25 @@ class EmployeeResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'empNo' => $this->empNo,
-            'name' => $this->name,
-            'fullname' => $this->fullname,
-            'company' => $this->company,
-            'department' => $this->department,
-            'section' => $this->section,
-            'position' => $this->position,
-            'supervisor' => $this->supervisor,
-            'dateJoined' => $this->dateJoined,
-            'dateTerminated' => $this->dateTerminated,
-            'resigned' => $this->resigned,
-            'empGroup' => $this->empGroup,
-            'empCode' => $this->empCode,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'empNo' => $this->empNo,
+                'name' => $this->name,
+                'fullname' => $this->fullname,
+                'company' => $this->company,
+                'department' => $this->department,
+                'section' => $this->section,
+                'position' => $this->position,
+                'supervisor' => $this->supervisor,
+                'dateJoined' => $this->dateJoined,
+                'dateTerminated' => $this->dateTerminated,
+                'resigned' => $this->resigned,
+                'empGroup' => $this->empGroup,
+                'empCode' => $this->empCode,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

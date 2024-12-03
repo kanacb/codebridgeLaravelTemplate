@@ -33,20 +33,21 @@ class PermissionFieldResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'profile' => $this->profile,
-            'service' => $this->service,
-            'fieldId' => $this->fieldId,
-            'read' => $this->read,
-            'readAll' => $this->readAll,
-            'updateOwn' => $this->updateOwn,
-            'updateAll' => $this->updateAll,
-            'deleteOwn' => $this->deleteOwn,
-            'deleteAll' => $this->deleteAll,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'profile' => $this->profile,
+                'service' => $this->service,
+                'fieldId' => $this->fieldId,
+                'read' => $this->read,
+                'readAll' => $this->readAll,
+                'updateOwn' => $this->updateOwn,
+                'updateAll' => $this->updateAll,
+                'deleteOwn' => $this->deleteOwn,
+                'deleteAll' => $this->deleteAll,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

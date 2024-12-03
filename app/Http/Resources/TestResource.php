@@ -29,16 +29,17 @@ class TestResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'stack' => $this->stack,
-            'service' => $this->service,
-            'passed' => $this->passed,
-            'failed' => $this->failed,
-            'notes' => $this->notes,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'stack' => $this->stack,
+                'service' => $this->service,
+                'passed' => $this->passed,
+                'failed' => $this->failed,
+                'notes' => $this->notes,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

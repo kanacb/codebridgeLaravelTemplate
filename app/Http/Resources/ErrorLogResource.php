@@ -29,16 +29,17 @@ class ErrorLogResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'serviceName' => $this->serviceName,
-            'errorMessage' => $this->errorMessage,
-            'message' => $this->message,
-            'stack' => $this->stack,
-            'details' => $this->details,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'serviceName' => $this->serviceName,
+                'errorMessage' => $this->errorMessage,
+                'message' => $this->message,
+                'stack' => $this->stack,
+                'details' => $this->details,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

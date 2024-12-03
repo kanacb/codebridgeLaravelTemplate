@@ -28,15 +28,16 @@ class UserLoginResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'loginEmail' => $this->loginEmail,
-            'access' => $this->access,
-            'sendMailCounter' => $this->sendMailCounter,
-            'code' => $this->code,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'loginEmail' => $this->loginEmail,
+                'access' => $this->access,
+                'sendMailCounter' => $this->sendMailCounter,
+                'code' => $this->code,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

@@ -30,17 +30,18 @@ class UserPhoneResource extends JsonResource
                     ];
                 }),
             ];
-        }
-        return [
-            '_id' => $this->id,
-            'userId' => $this->userId,
-            'countryCode' => $this->countryCode,
-            'operatorCode' => $this->operatorCode,
-            'number' => $this->number,
-            'type' => $this->type,
-            'isDefault' => $this->isDefault,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at
-        ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'userId' => $this->userId,
+                'countryCode' => $this->countryCode,
+                'operatorCode' => $this->operatorCode,
+                'number' => $this->number,
+                'type' => $this->type,
+                'isDefault' => $this->isDefault,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at
+            ];
     }
 }

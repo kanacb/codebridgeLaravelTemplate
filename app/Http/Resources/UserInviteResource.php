@@ -14,12 +14,26 @@ class UserInviteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            '_id' => $this->id,
-            'emailToInvite' => $this->emailToInvite,
-            'status' => $this->status,
-            'code' => $this->code,
-            'sendMailCounter' => $this->sendMailCounter
-        ];
+        if ($this->resource instanceof \Illuminate\Support\Collection) {
+            return [
+                $this->resource->map(function ($dField) {
+                    return [
+                        '_id' => $dField->id,
+                        'emailToInvite' => $dField->emailToInvite,
+                        'status' => $dField->status,
+                        'code' => $dField->code,
+                        'sendMailCounter' => $dField->sendMailCounter
+                    ];
+                }),
+            ];
+        } else if (is_int($this->resource)) return [];
+        else
+            return [
+                '_id' => $this->id,
+                'emailToInvite' => $this->emailToInvite,
+                'status' => $this->status,
+                'code' => $this->code,
+                'sendMailCounter' => $this->sendMailCounter
+            ];
     }
 }
