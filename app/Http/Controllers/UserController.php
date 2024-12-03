@@ -101,6 +101,8 @@ class UserController extends Controller
     public function update(CreateUserRequest $request, $id): JsonResponse
     {
         $newData = $request->except(["id", "created_at"]);
+        $newData["status"] = $newData['status'] == true ? 1 : 0;
+        $newData["is_email_verified"] = $newData['is_email_verified'] == true ? 1 : 0;
         $data = $this->UserRepository->updateUser($id, (array) $newData);
         return response()->json(new UserResource($data));
     }
