@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('mailQues')) {
+        if (Schema::hasTable('mail_ques')) {
             dd("service");
         } else {
-            Schema::create('mailQues', function (Blueprint $table) {
+            Schema::create('mail_ques', function (Blueprint $table) {
                 $table->id();
                 $table->string('name')->nullable();
                 $table->string('type')->nullable();
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mailQues');
+        Schema::dropIfExists('mail_ques');
     }
 };
